@@ -1,0 +1,42 @@
+.transparent-navbar {
+    background-color: rgba(69, 25, 199, 0.1) !important; /* beyaz, %30 şeffaf */
+    backdrop-filter: blur(10px); /* cam efekti */
+    -webkit-backdrop-filter: blur(10px); /* Safari uyumu */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* yumuşak gölge */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    height: 70px;
+  }
+  
+  .transparent-navbar .nav-link,
+  .transparent-navbar .navbar-brand {
+    color: #647f9f !important; 
+    font-weight: 600;
+  }
+
+  .page-background {
+    background-color: #f4c1c1 !important;/* açık mavi gri */
+    min-height: 300vh;
+    padding-top: 0px;
+  }
+
+  .full-height {
+    min-height: calc(100vh - 70px); /* navbar yüksekliğini çıkararak tam ortalama */
+  }  
+  
+  .adopt-donate-heading {
+    color: #647f9f; /* Yazı rengini değiştirme, örneğin turuncu */
+    font-family: 'Arial', sans-serif; /* Font ailesini değiştirme */
+    font-size: 2rem; /* Yazı boyutunu değiştirme */
+    font-weight: bold; /* Yazıyı kalın yapma */
+  }
+
+  .navbar-brand img {
+    max-height: 70px;
+    object-fit: contain;
+    margin-right: 10px;
+    margin-left: 0px;
+    transform: translateY(1px);
+  }
+  
+  
+  
