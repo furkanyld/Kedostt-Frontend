@@ -1,7 +1,8 @@
 {
-  "name": "kedostt-fronteend",
+  "name": "kedostt-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kedostt-frontend.onrender.com",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -46,6 +47,5 @@
     "postcss": "^8.5.3",
     "tailwind": "^4.0.0",
     "tailwindcss": "^4.1.4"
-  },
-  "proxy": "http://localhost:8080"
+  }
 }
