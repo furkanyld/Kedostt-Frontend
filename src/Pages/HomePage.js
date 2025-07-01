@@ -27,7 +27,7 @@ function HomePage() {
             <p className="fs-5" style={{ color: "#4a4a4a" }}>
               Kedostt, tamamen kendi imkanlarımla ve sevgimle yürüttüğüm bir Instagram sayfası.
               Sokakta yardıma muhtaç, hasta ya da yuva bekleyen canları görünür kılmak için bu sayfayı açtım.
-              Burada onları sahiplendirmek, tedavi masraflarına destek olmak ve onların sesi olmak için uğraşıyorum.
+              Burada onları sahiplendirmek, tedavi masraflarına destek olmak ve onların sesini duyurmak için uğraşıyorum.
             </p>
             <div className="mt-3"style={{ display: "flex", justifyContent: "center" }}>
               <a
@@ -64,9 +64,9 @@ function HomePage() {
             🐶 🐱 Sahiplen | Bağış Yap | Destek Ol
           </h2>
           <p className="fs-5" style={{ color: "#4a4a4a", maxWidth: "900px", margin: "auto" }}>
-            Ben tek başıma elimden geleni yapmaya çalışıyorum. Sen de bir cana yuva açabilir veya 
-            mama, tedavi ve veteriner destekleri için katkıda bulunabilirsin. 
-            Hep birlikte onların hayatına dokunalım!
+            Sen de bir cana yuva olabilir ya da 
+            mama ve tedavi masraflarına katkıda bulunabilirsin. 
+            Hep birlikte onların hayatına dokunabiliriz!
           </p>
         </div>
       </div>
