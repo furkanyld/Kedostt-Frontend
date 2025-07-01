@@ -1,36 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../Api/PublicAxios";
 import AnimalCard from "../Components/AnimalCard";
-import hayvan1 from "../Assets/hayvan1.jpg";
-import hayvan2 from "../Assets/hayvan2.jpg";
 
 function DonatePage() {
-  const animals = [
-    {
-      name: "Pamuk",
-      description: "Veteriner masrafları için destek bekliyor.",
-      image: hayvan1,
-    },
-    {
-      name: "Boncuk",
-      description: "Yaralı bulundu, tedavi masrafları için bağış yapılabilir.",
-      image: hayvan2,
-    },
-  ];
+  const [animals, setAnimals] = useState([]);
+
+  useEffect(() => {
+    axios.get("/api/animals")
+      .then(res => {
+        const visibleAnimals = res.data.filter(animal => animal.visible);
+        setAnimals(visibleAnimals);
+      })
+      .catch(err => console.error("Hayvanlar alınamadı", err));
+  }, []);
 
   return (
     <div className="container mt-5">
-      <h1 className="adopt-donate-heading">Bağış Yapılabilecek Hayvanlar</h1>
+      <h1 className="adopt-donate-heading">🐾 Patili Dostlarımız</h1>
       <div className="row">
-        {animals.map((animal, index) => (
-          <div className="col-md-4" key={index}>
-            <AnimalCard
-              name={animal.name}
-              description={animal.description}
-              image={animal.image}
-              actionLabel="Bağış Yap"
-            />
+        {animals.length === 0 ? (
+          <div className="col-12">
+            <p className="text-center">Şu anda bağışa açık hayvan bulunmamaktadır.</p>
           </div>
-        ))}
+        ) : (
+          animals.map((animal) => (
+            <div className="col-md-4" key={animal.id}>
+              <AnimalCard
+                id={animal.id}
+                name={animal.name}
+                description={animal.description}
+                image={animal.imageUrl}
+                species={animal.species}
+                breed={animal.breed}
+                gender={animal.gender}
+                ageYears={animal.ageYears}
+                ageMonths={animal.ageMonths}
+              />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

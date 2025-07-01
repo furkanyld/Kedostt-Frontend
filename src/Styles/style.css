@@ -1,42 +1,421 @@
+/* Navbar */
 .transparent-navbar {
-    background-color: rgba(69, 25, 199, 0.1) !important; /* beyaz, %30 şeffaf */
-    backdrop-filter: blur(10px); /* cam efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari uyumu */
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* yumuşak gölge */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    height: 70px;
-  }
-  
-  .transparent-navbar .nav-link,
-  .transparent-navbar .navbar-brand {
-    color: #647f9f !important; 
-    font-weight: 600;
-  }
+  background-color: rgba(69, 25, 199, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  height: 70px;
+}
 
-  .page-background {
-    background-color: #f4c1c1 !important;/* açık mavi gri */
-    min-height: 300vh;
-    padding-top: 0px;
-  }
+.transparent-navbar .nav-link,
+.transparent-navbar .navbar-brand {
+  color: #647f9f !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
 
-  .full-height {
-    min-height: calc(100vh - 70px); /* navbar yüksekliğini çıkararak tam ortalama */
-  }  
-  
-  .adopt-donate-heading {
-    color: #647f9f; /* Yazı rengini değiştirme, örneğin turuncu */
-    font-family: 'Arial', sans-serif; /* Font ailesini değiştirme */
-    font-size: 2rem; /* Yazı boyutunu değiştirme */
-    font-weight: bold; /* Yazıyı kalın yapma */
-  }
+.transparent-navbar .nav-link:hover,
+.transparent-navbar .navbar-brand:hover {
+  color: #3f5d7a !important;
+  text-shadow: 0 2px 10px rgba(100, 127, 159, 0.4);
+  transform: scale(1.05);
+}
 
-  .navbar-brand img {
-    max-height: 70px;
-    object-fit: contain;
-    margin-right: 10px;
-    margin-left: 0px;
-    transform: translateY(1px);
-  }
-  
-  
-  
+.transparent-navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #647f9f;
+  transition: width 0.3s;
+}
+
+.transparent-navbar .nav-link:hover::after {
+  width: 100%;
+}
+
+.navbar-brand img {
+  max-height: 70px;
+  object-fit: contain;
+  margin-right: 10px;
+  transform: translateY(1px);
+}
+
+/* Page Background #f4c1c1 */
+.page-background {
+  background-color: #f4c1c1 !important;
+  background-image: radial-gradient(#ffffff33 1px, transparent 1px);
+  background-size: 20px 20px;
+  min-height: 300vh;
+  padding-top: 0px;
+}
+
+.full-height {
+  min-height: calc(100vh - 70px);
+}
+
+/* Başlık */
+.adopt-donate-heading {
+  color: #375880;
+  font-family: 'Arial', sans-serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #da9595 0%, #c9bddf 100%);
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(36, 22, 22, 0.12);
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+/* Modal */
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
+  background: transparent;
+}
+
+.modal-title {
+  color: #647f9f;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.modal-body {
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+}
+
+.modal-body a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #E1306C;
+  font-weight: bold;
+}
+
+.modal-footer .btn,
+.modal-body .btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Modal özel renk varyasyonu */
+.donate-modal .modal-content,
+.adopt-modal .modal-content {
+  background: linear-gradient(135deg, rgba(240, 245, 255, 0.9), rgba(255, 250, 245, 0.9));
+}
+
+/* Kart */
+.animal-card {
+  width: 18rem;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.animal-card:hover {
+  transform: scale(1.05);
+}
+
+.card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(69, 25, 199, 0.8);
+  color: white;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.animal-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-overlay h5 {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-overlay p {
+  margin: 2px 0;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Kart altı */
+.animal-card .card-body {
+  background-color: rgba(240, 240, 240, 0.9);
+  text-align: center;
+  padding: 12px 16px;
+}
+
+.animal-card .card-body .card-title {
+  color: #2f2f2f;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.animal-card .card-body .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Login & Signup */
+.login-card {
+  width: 400px;
+  border-radius: 16px;
+  background-color: rgba(234, 238, 243, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.login-card h2 {
+  color: #524d5c;
+  font-weight: 700;
+}
+
+/* Durum Badge'leri */
+.badge {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Tablo başlıkları */
+table thead th {
+  background-color: #e7ecf3;
+  color: #2f2f2f;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Tablo satırları */
+table tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Onay ve Red butonları */
+.btn-success, .btn-danger {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* Modal ve Login Card Güncelleme */
+.modal-content, .login-card {
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+/* Navbar Yazı Boyutu */
+.transparent-navbar .nav-link,
+.transparent-navbar .navbar-brand {
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+/* Admin Panel Başlığı */
+h2 {
+  color: #3f5d7a;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Sahiplenme Başvuruları ve Hayvanlar başlıkları */
+h4 {
+  margin-top: 30px;
+  color: #4d6073;
+  font-weight: 600;
+}
+
+/* Başlık ve buton hizalama */
+.section-title {
+  color: #375880;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Hayvanlar tablosu üstündeki grup */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* Table button padding */
+.table .btn {
+  padding: 4px 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 8px;
+}
+
+/* Görsel */
+.table img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Card başlıkları */
+.card-title {
+  color: #375880;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.card {
+  background: linear-gradient(135deg, #fce9f1, #eaf0fa);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.card .btn {
+  border-radius: 8px;
+}
+
+/* Table header */
+table thead th {
+  background-color: #e7ecf3;
+  color: #2f2f2f;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Table body */
+table tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Badge */
+.badge {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Görsel */
+.table img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Yeni Hayvan Ekle Butonu */
+.add-animal-btn {
+  width: 160px;  /* Düzenle ve Sil toplam genişlik kadar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Tablo buton grubu */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+/* Tüm tablo butonları hizalama */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Yeni Hayvan Ekle butonu boyut */
+.add-animal-btn {
+  width: 165px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Tablo header */
+.table thead th {
+  background-color: #e7ecf3;
+  color: #2f2f2f;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Tablo gövdesi */
+.table tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Kart yapıları */
+.card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+/* Kart başlıkları */
+.card-title {
+  color: #375880;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+

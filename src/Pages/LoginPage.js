@@ -1,53 +1,69 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../Api/PublicAxios";
+import { useAuth } from "../Context/AuthContext";
+import { jwtDecode } from "jwt-decode";
+import "../Styles/style.css";
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Burada basit bir kontrol yapıyoruz: doğru email ve şifre ile giriş başarılı kabul ediyoruz.
-    if (email === "test@test.com" && password === "12345") {
+    try {
+      const response = await axios.post("/api/auth/login", {
+        username,
+        password,
+      });
+  
+      const token = response.data.token;
+      login(token);
+  
       alert("Giriş başarılı!");
-      navigate("/"); // Anasayfaya yönlendiriyoruz
-    } else {
-      alert("Hatalı giriş! Lütfen tekrar deneyin.");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      alert("Giriş başarısız! Bilgileri kontrol edin.");
+      console.error("Login error:", error);
     }
   };
+  
 
   return (
-    <div style={{ textAlign: "center", paddingTop: "50px" }}>
-      <h2 className="adopt-donate-heading">Giriş Yap</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">E-posta: </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="E-posta adresiniz"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "10px" }}>
-          <label htmlFor="password">Şifre: </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Şifreniz"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <button type="submit">Giriş Yap</button>
-        </div>
-      </form>
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="login-card p-4 shadow">
+        <h2 className="text-center mb-4">Giriş Yap</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Kullanıcı Adı</label>
+            <input
+              type="text"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Şifre</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="btn btn-primary w-100" type="submit">
+            Giriş Yap
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

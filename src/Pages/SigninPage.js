@@ -1,53 +1,74 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../Api/PublicAxios";
+import "../Styles/style.css";
 
 function SigninPage() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    try {
+      await axios.post("/api/auth/register", {
+        username,
+        email,
+        password,
+      });
 
-    // Burada basit bir kontrol yapıyoruz: doğru email ve şifre ile giriş başarılı kabul ediyoruz.
-    if (email === "test@test.com" && password === "12345") {
-      alert("Giriş başarılı!");
-      navigate("/"); // Anasayfaya yönlendiriyoruz
-    } else {
-      alert("Hatalı giriş! Lütfen tekrar deneyin.");
+      alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+      navigate("/login");
+    } catch (error) {
+      console.error("Kayıt başarısız:", error);
+      alert("Kayıt başarısız! Lütfen bilgileri kontrol edin.");
     }
   };
 
   return (
-    <div style={{ textAlign: "center", paddingTop: "50px" }}>
-      <h2 className="adopt-donate-heading">Kayıt Ol</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">E-posta: </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="E-posta adresiniz"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "10px" }}>
-          <label htmlFor="password">Şifre: </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Şifreniz"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <button type="submit">Kayıt Ol</button>
-        </div>
-      </form>
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="login-card p-4 shadow">
+        <h2 className="text-center mb-4">Kayıt Ol</h2>
+        <form onSubmit={handleRegister}>
+          <div className="mb-3">
+            <label className="form-label">Kullanıcı Adı:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">E-posta:</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Şifre:</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="btn btn-success w-100" type="submit">
+            Kayıt Ol
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
