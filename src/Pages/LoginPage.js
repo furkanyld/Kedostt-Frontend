@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../Api/PublicAxios";
+import privateAxios from "../Api/PrivateAxios";
 import { useAuth } from "../Context/AuthContext";
-import { jwtDecode } from "jwt-decode";
 import "../Styles/style.css";
 
 function LoginPage() {
@@ -14,14 +13,14 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await privateAxios.post("/api/auth/login", {
         username,
         password,
       });
-  
+
       const token = response.data.token;
       login(token);
-  
+
       alert("Giriş başarılı!");
       navigate("/");
       window.location.reload();
@@ -30,7 +29,6 @@ function LoginPage() {
       console.error("Login error:", error);
     }
   };
-  
 
   return (
     <div className="container mt-5 d-flex justify-content-center">

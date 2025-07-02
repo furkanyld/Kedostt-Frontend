@@ -12,19 +12,28 @@ function SigninPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/auth/register", {
+      const response = await axios.post("/api/auth/register", {
         username,
         email,
         password,
       });
-
-      alert("Kayıt başarılı! Giriş yapabilirsiniz.");
-      navigate("/login");
+  
+      if (response.status === 200) {
+        alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+        navigate("/login");
+      } else {
+        alert("Kayıt sırasında beklenmeyen bir hata oluştu.");
+      }
     } catch (error) {
       console.error("Kayıt başarısız:", error);
-      alert("Kayıt başarısız! Lütfen bilgileri kontrol edin.");
+      if (error.response) {
+        alert(`Kayıt başarısız: ${error.response.data.message || "Hata oluştu."}`);
+      } else {
+        alert("Kayıt başarısız! Lütfen bağlantınızı ve bilgileri kontrol edin.");
+      }
     }
   };
+  
 
   return (
     <div className="container mt-5 d-flex justify-content-center">
