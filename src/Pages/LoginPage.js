@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import privateAxios from "../Api/PublicAxios";
+import publicAxios from "../Api/PublicAxios";
 import { useAuth } from "../Context/AuthContext";
 import "../Styles/style.css";
 
