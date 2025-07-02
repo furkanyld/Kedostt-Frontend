@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import privateAxios from "../Api/PrivateAxios";
+import privateAxios from "../Api/PublicAxios";
 import { useAuth } from "../Context/AuthContext";
 import "../Styles/style.css";
 
@@ -13,9 +13,9 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await privateAxios.post("/api/auth/login", {
-        username,
-        password,
+      const response = await publicAxios.post("/api/auth/login", {
+        username: username,
+        password: password,
       });
 
       const token = response.data.token;
