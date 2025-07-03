@@ -40,6 +40,18 @@
   width: 100%;
 }
 
+.navbar-title {
+  color: #647f9f !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.8px;
+  transition: all 0.3s ease;
+}
+.navbar-title:hover {
+  color: #3f5d7a !important;
+  text-shadow: 0 2px 10px rgba(100, 127, 159, 0.4);
+}
+
 .navbar-brand {
   height: 70px; /* navbar yüksekliği ile birebir */
   display: flex;
