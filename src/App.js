@@ -11,7 +11,8 @@ import ProfilePage from "./Pages/ProfilePage";
 
 import MainNavbar from "./Components/MainNavbar";
 import LoadingSpinner from "./Components/LoadingSpinner";
-import { AuthProvider, useAuth } from "./Context/AuthContext";
+import { useAuth } from "./Context/AuthContext";
+import ScrollToTop from "./Components/ScrollToTop";
 
 import "./App.css";
 import "./Styles/style.css";
@@ -31,6 +32,7 @@ if (isLoading) return <LoadingSpinner />;
   return (
       <div className="page-background">
         <MainNavbar />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

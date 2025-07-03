@@ -448,7 +448,7 @@ table tbody td {
 
 @media (max-width: 576px) {
   .navbar-brand img {
-    max-height: 50px;
+    max-height: 60px;
     transform: translateY(1px); 
   }
 }

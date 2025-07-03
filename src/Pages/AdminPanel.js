@@ -429,4 +429,97 @@ function AdminPanel() {
   );
 }
 
+{/* Hayvan Güncelle Modalı */}
+<Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Hayvanı Güncelle</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      <Form.Group className="mb-2">
+        <Form.Label>Ad</Form.Label>
+        <Form.Control
+          type="text"
+          value={editData.name}
+          onChange={(e) =>
+            setEditData({ ...editData, name: e.target.value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Tür</Form.Label>
+        <Form.Control
+          type="text"
+          value={editData.species}
+          onChange={(e) =>
+            setEditData({ ...editData, species: e.target.value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Cins</Form.Label>
+        <Form.Control
+          type="text"
+          value={editData.breed}
+          onChange={(e) =>
+            setEditData({ ...editData, breed: e.target.value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Yaş (Yıl)</Form.Label>
+        <Form.Control
+          type="number"
+          value={editData.ageYears}
+          onChange={(e) =>
+            setEditData({ ...editData, ageYears: Number(e.target.value) })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Yaş (Ay)</Form.Label>
+        <Form.Control
+          type="number"
+          value={editData.ageMonths}
+          onChange={(e) =>
+            setEditData({ ...editData, ageMonths: Number(e.target.value) })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Cinsiyet</Form.Label>
+        <Form.Control
+          type="text"
+          value={editData.gender}
+          onChange={(e) =>
+            setEditData({ ...editData, gender: e.target.value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Açıklama</Form.Label>
+        <Form.Control
+          type="text"
+          value={editData.description}
+          onChange={(e) =>
+            setEditData({ ...editData, description: e.target.value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Resim Yükle</Form.Label>
+        <Form.Control type="file" onChange={handleEditImageToBase64} />
+      </Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+      İptal
+    </Button>
+    <Button variant="primary" onClick={handleUpdateAnimal}>
+      Güncelle
+    </Button>
+  </Modal.Footer>
+</Modal>
+
 export default AdminPanel;
