@@ -419,3 +419,29 @@ table tbody td {
   font-size: 1.4rem;
 }
 
+@media (max-width: 768px) {
+  .animal-card {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+@media (max-width: 450px) {
+  .login-card {
+    width: 100% !important;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .action-buttons {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
