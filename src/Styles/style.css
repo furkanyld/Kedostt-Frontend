@@ -445,3 +445,10 @@ table tbody td {
     gap: 6px;
   }
 }
+
+@media (max-width: 576px) {
+  .navbar-brand img {
+    max-height: 50px;
+    transform: translateY(-2px); 
+  }
+}
