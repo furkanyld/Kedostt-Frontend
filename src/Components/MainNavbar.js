@@ -25,7 +25,15 @@ function MainNavbar() {
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src={logo} alt="Kedostt Logo" className="me-2" />
-          Kedostt
+          <span className="fw-bold text-primary">Kedostt</span>
+          {/* Mobilde sağda "Sahiplen / Bağış Yap" görünür */}
+          <Link
+            to="/donate"
+            className="d-lg-none ms-2 text-decoration-none fw-bold text-primary"
+            style={{ fontSize: "0.9rem" }}
+          >
+            Sahiplen / Bağış Yap
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
