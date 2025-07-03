@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // ✅ ekledik
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,17 +21,18 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
       }
     }
+    setIsLoading(false); // ✅ kullanıcı kontrolü bittiğinde artık loading false
   }, []);
 
   const login = (token) => {
     const decoded = jwtDecode(token);
     const username = decoded.sub || decoded.username;
     const role = decoded.roles || decoded.role;
-  
+
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
     localStorage.setItem("role", role);
-  
+
     setUser({ username, role });
   };
 
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   const isUser = user?.role === "ROLE_USER";
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAdmin, isUser }}>
+    <AuthContext.Provider value={{ user, login, logout, isAdmin, isUser, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

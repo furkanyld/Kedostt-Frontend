@@ -24,7 +24,9 @@ const AdminRoute = ({ children }) => {
 
 function App() {
   
-const { user } = useAuth();
+const { user, isLoading } = useAuth();
+
+if (isLoading) return null;
 
   return (
       <div className="page-background">

@@ -6,7 +6,7 @@ import "../Styles/style.css";
 import logo from "../Assets/logo.png";
 
 function MainNavbar() {
-  const { user, logout, isAdmin } = useAuth();
+  const { user, logout, isAdmin, isLoading } = useAuth();
   const location = useLocation();
 
   const [expanded, setExpanded] = useState(false); // 👈 menü durumu
@@ -43,7 +43,7 @@ function MainNavbar() {
             ) : (
               <>
                 <Nav.Link as={Link} to="/profile">Profilim</Nav.Link>
-                {isAdmin && (
+                {!isLoading && isAdmin && (
                   <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
                 )}
                 <Nav.Link onClick={logout}>Çıkış Yap</Nav.Link>
