@@ -35,12 +35,12 @@ function MainNavbar() {
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
           <Nav className="ms-auto" onClick={() => setExpanded(false)}>
-            {!isLoading && !user && (
+            {!user && !isLoading && (
               <>
                 <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
                 <Nav.Link as={Link} to="/signin">Kayıt Ol</Nav.Link>
               </>
-            ) : (
+            )} {user && !isLoading && (
               <>
                 <Nav.Link as={Link} to="/profile">Profilim</Nav.Link>
                 {!isLoading && isAdmin && (
