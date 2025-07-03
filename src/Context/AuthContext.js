@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
       }
     }
-    setIsLoading(false); // ✅ kullanıcı kontrolü bittiğinde artık loading false
+    setIsLoading(false); 
   }, []);
 
   const login = (token) => {
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const isAdmin = user?.role === "ROLE_ADMIN";
+  const isAdmin = !!user && user.role === "ROLE_ADMIN";
   const isUser = user?.role === "ROLE_USER";
 
   return (

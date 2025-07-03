@@ -11,7 +11,6 @@ function MainNavbar() {
 
   const [expanded, setExpanded] = useState(false); // 👈 menü durumu
 
-  // Sayfa değiştiğinde menüyü kapat
   useEffect(() => {
     setExpanded(false);
   }, [location.pathname]);
@@ -35,18 +34,23 @@ function MainNavbar() {
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
           <Nav className="ms-auto" onClick={() => setExpanded(false)}>
-            {!user && !isLoading && (
+            {!isLoading && (
               <>
-                <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
-                <Nav.Link as={Link} to="/signin">Kayıt Ol</Nav.Link>
-              </>
-            )} {user && !isLoading && (
-              <>
-                <Nav.Link as={Link} to="/profile">Profilim</Nav.Link>
-                {!isLoading && isAdmin && (
-                  <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
+                {!user && (
+                  <>
+                    <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
+                    <Nav.Link as={Link} to="/signin">Kayıt Ol</Nav.Link>
+                  </>
                 )}
-                <Nav.Link onClick={logout}>Çıkış Yap</Nav.Link>
+                {user && (
+                  <>
+                    <Nav.Link as={Link} to="/profile">Profilim</Nav.Link>
+                    {isAdmin && (
+                      <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
+                    )}
+                    <Nav.Link onClick={logout}>Çıkış Yap</Nav.Link>
+                  </>
+                )}
               </>
             )}
           </Nav>
