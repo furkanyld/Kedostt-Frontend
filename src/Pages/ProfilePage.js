@@ -23,7 +23,7 @@ function ProfilePage() {
   // ✅ Başvuruları Çek
   const fetchAdoptions = () => {
     axios
-      .get("/api/users/me/adoptions")
+      .get("/api/adoption/me")
       .then((res) => setAdoptions(res.data))
       .catch((err) => console.error("Başvurular alınamadı:", err));
   };

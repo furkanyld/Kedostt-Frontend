@@ -26,7 +26,7 @@ function MainNavbar() {
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src={logo} alt="Kedostt Logo" className="me-2" />
           <span className="navbar-title">Kedostt</span>
-          {/* Mobilde sağda "Sahiplen / Bağış Yap" görünür */}
+          {/* Mobilde navbarda "Sahiplen / Bağış Yap" görünür */}
           <Link
             to="/donate"
             className="d-lg-none ms-2 text-decoration-none navbar-title"
@@ -46,17 +46,17 @@ function MainNavbar() {
               <>
                 {!user && (
                   <>
-                    <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
-                    <Nav.Link as={Link} to="/signin">Kayıt Ol</Nav.Link>
+                    <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
+                    <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
                   </>
                 )}
                 {user && (
                   <>
-                    <Nav.Link as={Link} to="/profile">Profilim</Nav.Link>
+                    <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
                     {isAdmin && (
-                      <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
+                      <Nav.Link as={Link} to="/admin" className="navbar-title">Admin Panel</Nav.Link>
                     )}
-                    <Nav.Link onClick={logout}>Çıkış Yap</Nav.Link>
+                    <Nav.Link onClick={logout} className="navbar-title">Çıkış Yap</Nav.Link>
                   </>
                 )}
               </>
