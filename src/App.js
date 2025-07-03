@@ -10,7 +10,7 @@ import AdminPanel from "./Pages/AdminPanel";
 import ProfilePage from "./Pages/ProfilePage";
 
 import MainNavbar from "./Components/MainNavbar";
-
+import LoadingSpinner from "./Components/LoadingSpinner";
 import { AuthProvider, useAuth } from "./Context/AuthContext";
 
 import "./App.css";
@@ -18,15 +18,15 @@ import "./Styles/style.css";
 
 // ✅ Admin Route Koruması
 const AdminRoute = ({ children }) => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isLoading } = useAuth();
+  if (isLoading) return <LoadingSpinner />;
   return isAdmin ? children : <Navigate to="/" />;
 };
 
 function App() {
   
 const { user, isLoading } = useAuth();
-
-if (isLoading) return null;
+if (isLoading) return <LoadingSpinner />;
 
   return (
       <div className="page-background">

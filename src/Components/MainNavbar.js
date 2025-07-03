@@ -35,7 +35,7 @@ function MainNavbar() {
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
           <Nav className="ms-auto" onClick={() => setExpanded(false)}>
-            {!user ? (
+            {!isLoading && !user && (
               <>
                 <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
                 <Nav.Link as={Link} to="/signin">Kayıt Ol</Nav.Link>
