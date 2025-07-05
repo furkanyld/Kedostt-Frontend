@@ -24,6 +24,7 @@ const AdminRoute = ({ children }) => {
   return isAdmin ? children : <Navigate to="/" />;
 };
 
+
 function App() {
   
 const { user, isLoading } = useAuth();
