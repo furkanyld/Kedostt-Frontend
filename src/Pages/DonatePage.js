@@ -14,13 +14,16 @@ function DonatePage() {
         setAnimals(visibleAnimals);
         setIsLoading(false);
       })
-      .catch(err => console.error("Hayvanlar alınamadı", err));
-    setIsLoading(false);
+      .catch(err => {
+        console.error("Hayvanlar alınamadı", err);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <div className="container mt-5">
       <h1 className="adopt-donate-heading">🐾 Patili Dostlarımız</h1>
+
       {isLoading ? (
         <>
           <LoadingSpinner />
@@ -52,6 +55,7 @@ function DonatePage() {
             ))
           )}
         </div>
+      )}
     </div>
   );
 }
