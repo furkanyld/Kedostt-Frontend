@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import publicAxios from "../Api/PublicAxios";
 import { useAuth } from "../Context/AuthContext";
 import "../Styles/style.css";
+import { Spinner } from "react-bootstrap";
 
 function LoginPage() {
   const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await publicAxios.post("/api/auth/login", {
         username: username,
@@ -27,6 +30,8 @@ function LoginPage() {
     } catch (error) {
       alert("Giriş başarısız! Bilgileri kontrol edin.");
       console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,8 +62,14 @@ function LoginPage() {
             />
           </div>
 
-          <button className="btn btn-primary w-100" type="submit">
-            Giriş Yap
+          <button className="btn btn-primary w-100" type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Spinner animation="border" size="sm" className="me-2" /> Giriş Yapılıyor...
+              </>
+            ) : (
+              "Giriş Yap"
+            )}
           </button>
         </form>
       </div>
