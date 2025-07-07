@@ -14,7 +14,7 @@
 ### 🐾 Home Page
 ![Home](public/screenshots/HomePage.png)
 
-### Adopt Page
+### 📋 Adopt Page
 ![Adopt/Donate](public/screenshots/AdoptPage.png)
 
 ### 📄 Adoption Form
@@ -26,11 +26,11 @@
 ### 🛠️ Admin Panel
 ![Admin](public/screenshots/AdminPanel.png)
 
-### Log in
-![Login](public/screenshots/AdminPanel.png)
+### 🔐 Log in
+![Login](public/screenshots/Login.png)
 
-### Sign up
-![Signup](public/screenshots/AdminPanel.png)
+### 📝 Sign up
+![Signup](public/screenshots/Signup.png)
 ---
 
 ## ✨ Features
