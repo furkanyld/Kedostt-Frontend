@@ -18,7 +18,7 @@
 ![Adopt/Donate](public/screenshots/AdoptPage.png)
 
 ### 📄 Adoption Form
-![Adoption](public/screenshots/AdoptionApplication.png)
+![Adoption](public/screenshots/AdoptApplication.png)
 
 ### 💸 Donation Page
 ![Donation](public/screenshots/Donate.png)
