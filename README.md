@@ -12,17 +12,25 @@
 > Below are example screenshots of the website:
 
 ### 🐾 Home Page
-![Home](screenshots/Home.png)
+![Home](public/screenshots/HomePage.png)
+
+### Adopt Page
+![Adopt/Donate](public/screenshots/AdoptPage.png)
 
 ### 📄 Adoption Form
-![Adoption](screenshots/AdoptionForm.png)
+![Adoption](public/screenshots/AdoptionApplication.png)
 
 ### 💸 Donation Page
-![Donation](screenshots/DonationPage.png)
+![Donation](public/screenshots/Donate.png)
 
 ### 🛠️ Admin Panel
-![Admin](screenshots/AdminPanel.png)
+![Admin](public/screenshots/AdminPanel.png)
 
+### Log in
+![Login](public/screenshots/AdminPanel.png)
+
+### Sign up
+![Signup](public/screenshots/AdminPanel.png)
 ---
 
 ## ✨ Features
