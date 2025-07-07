@@ -28,7 +28,8 @@
 ## ✨ Features
 
 - Animal listing with image, breed, age, gender, etc.
-- Adoption and donation forms (public access)
+- Adoption form (public access)
+- Redirect to Instagram for donation
 - Admin login with JWT-based session
 - Admin panel:
   - Add / Edit / Delete animals
@@ -37,6 +38,17 @@
 - Responsive UI (Bootstrap + custom styling)
 - Base64 image upload
 
+---
+
+## 📁 Project Structure
+```
+src/
+├── components
+├── pages
+├── Api
+├── assets
+└── App.js
+```
 ---
 
 ## 🧰 Technologies Used
@@ -60,3 +72,8 @@
 ```bash
 npm install
 npm start
+```
+---
+
+## 👨‍💻 Developer
+LinkedIn: [Furkan Yıldız](www.linkedin.com/in/furkan-yıldız-584383254)
