@@ -40,8 +40,8 @@ function HomePage() {
             </a>
 
             {/* Alt metin */}
-            <div className="mt-5 text-center">
-              <h2 style={{ color: "#647f9f", fontWeight: "600", fontSize: "1.4rem" }}>
+            <div className="mt-5 text-start">
+              <h2 style={{ color: "#647f9f", fontWeight: "600", fontSize: "1.4rem", textAlign: "left" }}>
                 🐶 🐱 Sahiplen | Bağış Yap | Destek Ol
               </h2>
               <p
@@ -51,6 +51,7 @@ function HomePage() {
                   maxWidth: "750px",
                   margin: "12px auto 0",
                   lineHeight: 1.5,
+                  textAlign: "left",
                 }}
               >
                 Sen de bir cana yuva olabilir ya da mama ve tedavi masraflarına katkıda bulunabilirsin.
