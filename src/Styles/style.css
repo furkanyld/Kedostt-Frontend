@@ -497,13 +497,7 @@ table tbody td {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.page-background {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'><text x='0' y='80' font-size='100'>🐾</text></svg>");
-  background-repeat: repeat;
-  background-size: 80px;
-  background-position: center;
-  background-attachment: fixed;
-}
+
 
 
 /* 🌙 Dark Mode */
