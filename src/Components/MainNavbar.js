@@ -9,11 +9,21 @@ function MainNavbar() {
   const { user, logout, isAdmin, isLoading } = useAuth();
   const location = useLocation();
 
-  const [expanded, setExpanded] = useState(false); // 👈 menü durumu
+  const [expanded, setExpanded] = useState(false);
+
+  // 🌙 Dark mode toggle state
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("kedostt-darkmode") === "true"
+  );
 
   useEffect(() => {
     setExpanded(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+    localStorage.setItem("kedostt-darkmode", isDarkMode);
+  }, [isDarkMode]);
 
   return (
     <Navbar
@@ -26,7 +36,6 @@ function MainNavbar() {
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src={logo} alt="Kedostt Logo" className="me-2" />
           <span className="navbar-title">Kedostt</span>
-          {/* Mobilde navbarda "Sahiplen / Bağış Yap" görünür */}
           <Link
             to="/donate"
             className="d-lg-none ms-2 text-decoration-none navbar-title"
@@ -41,16 +50,26 @@ function MainNavbar() {
             <Nav.Link as={Link} to="/">Ana Sayfa</Nav.Link>
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
+
+          {/* 🌙 Toggle button */}
+          <div className="ms-auto d-flex">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="btn btn-sm btn-outline-dark"
+            >
+              {isDarkMode ? "🌞" : "🌙"}
+            </button>
+          </div>
+
           <Nav className="ms-auto" onClick={() => setExpanded(false)}>
             {!isLoading && (
               <>
-                {!user && (
+                {!user ? (
                   <>
                     <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
                     <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
                   </>
-                )}
-                {user && (
+                ) : (
                   <>
                     <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
                     {isAdmin && (

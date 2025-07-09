@@ -488,3 +488,172 @@ table tbody td {
     z-index: 1000;
   }
 }
+
+/* 🌙 Dark Mode */
+.dark-mode {
+  background-color: #1e1e1e !important;
+  background-image: none !important;
+  color: #f0f0f0;
+}
+
+/* Kartların Dark Mode görünümü */
+.dark-mode .card {
+  background: linear-gradient(135deg, #2b2b2b, #3d3d3d);
+  color: #f0f0f0;
+}
+
+.dark-mode .card h5 {
+  color: #e3e3e3;
+}
+
+.dark-mode .btn-outline-dark {
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.dark-mode .btn-outline-dark:hover {
+  background-color: #444;
+  color: white;
+}
+
+/* Dark Mode Global */
+body.dark-mode {
+  background-color: #1e1e1e !important;
+  color: #f5f5f5;
+}
+
+body.dark-mode .navbar,
+body.dark-mode .card,
+body.dark-mode .modal-content {
+  background-color: #222 !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .navbar .nav-link,
+body.dark-mode .navbar-title {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .navbar .nav-link:hover,
+body.dark-mode .navbar-title:hover {
+  color: #fff !important;
+}
+
+/* Özel Kartlar İçin */
+.custom-home-card {
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #f8f1f4, #eaf0fa);
+}
+
+body.dark-mode .custom-home-card {
+  background: linear-gradient(135deg, #1f1f1f, #2b2b2b) !important;
+}
+
+.dark-toggle-button {
+  border: none;
+  background-color: transparent;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+body.dark-mode .page-background {
+  background-color: #1e1e1e !important;
+  background-image: none !important;
+  color: #f5f5f5;
+}
+
+/* 🌙 Ekstra Dark Mode Renk Güncellemeleri */
+body.dark-mode .card-body {
+  background-color: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .card-title {
+  color: #ffffff !important;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode h6 {
+  color: #f0f0f0 !important;
+}
+
+body.dark-mode .adopt-donate-heading {
+  color: #f5f5f5 !important;
+  background: linear-gradient(90deg, #a67979 0%, #7d74a8 100%) !important;
+}
+
+body.dark-mode .badge {
+  background-color: #333 !important;
+  color: #eee !important;
+}
+
+body.dark-mode .animal-card .card-body {
+  background-color: #2e2e2e !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .animal-card .card-title {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-body {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-title {
+  color: #ffffff !important;
+}
+
+body.dark-mode .custom-home-card ul,
+body.dark-mode .custom-home-card li {
+  color: #ddd !important;
+}
+
+/* 🔒 Dark Mode - Login/Register Kartı İçin Yazı Renkleri */
+body.dark-mode .login-card {
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark-mode .login-card h2 {
+  color: #f5f5f5 !important;
+}
+
+/* 🔡 Input alanlarının placeholder ve yazı rengi */
+body.dark-mode .login-card input,
+body.dark-mode .login-card input::placeholder {
+  color: #e0e0e0 !important;
+  background-color: #1f1f1f !important;
+  border: 1px solid #555 !important;
+}
+
+/* 🔘 Kayıt Ol/Giriş Yap buton rengi */
+body.dark-mode .login-card .btn {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 70%;
+    background-color: rgba(255, 255, 255, 0.95); /* AÇIK tema için */
+    padding: 1rem;
+    box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 0 16px;
+    z-index: 1000;
+  }
+
+  body.dark-mode .navbar .navbar-collapse {
+    background-color: rgba(34, 34, 34, 0.95); /* DARK tema için */
+    color: #fff;
+  }
+
+  body.dark-mode .navbar .nav-link {
+    color: #eee !important;
+  }
+}
