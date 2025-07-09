@@ -79,7 +79,7 @@ function HomePage() {
               <ul style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.6, paddingLeft: "1rem" }}>
                 <li>Sahipleneceğiniz hayvanın tüm sorumluluğu size aittir.</li>
                 <li>Lütfen geçici heveslerle değil, ömürlük sahiplenin.</li>
-                <li>Gerekli durumlarda ev ziyareti veya takip süreci yapılabilir.</li>
+                <li>Gerekli durumlarda takip süreci yapılabilir.</li>
                 <li>Sahiplendirme sonrası iletişimde kalınması önemlidir.</li>
               </ul>
             </div>
