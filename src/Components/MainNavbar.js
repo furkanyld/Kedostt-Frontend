@@ -36,15 +36,10 @@ function MainNavbar() {
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src={logo} alt="Kedostt Logo" className="me-2" />
           <span className="navbar-title">Kedostt</span>
-          <Link
-            to="/donate"
-            className="d-lg-none ms-2 text-decoration-none navbar-title"
-            style={{ fontSize: "0.9rem" }}
-          >
-            Sahiplen / Bağış Yap
-          </Link>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="me-auto" onClick={() => setExpanded(false)}>
             <Nav.Link as={Link} to="/">Ana Sayfa</Nav.Link>
@@ -52,7 +47,7 @@ function MainNavbar() {
           </Nav>
 
           {/* 🌙 Toggle button */}
-          <div className="ms-auto d-flex">
+          <div className="ms-auto d-flex align-items-center me-3">
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
               className="btn btn-sm btn-outline-dark"
