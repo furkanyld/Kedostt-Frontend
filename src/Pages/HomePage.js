@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import catDogPhoto from "../Assets/louis-philippe-poitras-sJgucUmcaKE-unsplash.jpg";
 import axios from "../Api/PublicAxios";
 
 function HomePage() {
@@ -18,9 +17,9 @@ function HomePage() {
   return (
     <div className="page-background">
       <div className="container py-5">
-        <div className="row g-4 flex-column-reverse flex-md-row">
+        <div className="row g-4 flex-column-reverse flex-md-row justify-content-between">
           {/* Sol içerik */}
-          <div className="col-md-8 d-flex flex-column align-items-center text-center">
+          <div className="col-md-7 d-flex flex-column align-items-center text-center">
             <div style={{ maxWidth: "900px" }}>
               <h1 style={{ color: "#647f9f", fontWeight: "700", fontSize: "2rem" }}>
                 Kedostt 🐾
@@ -61,9 +60,9 @@ function HomePage() {
           </div>
 
           {/* Sağ bar */}
-          <div className="col-md-4 d-flex flex-column gap-3">
-            <div className="card shadow-sm p-3" style={{ borderRadius: "1rem", backgroundColor: "#f8f1f4" }}>
-              <h5 style={{ color: "#647f9f", fontWeight: "600" }}>💚 Sahiplen, Bir Hayat Kurtar</h5>
+          <div className="col-md-4 offset-md-1 d-flex flex-column gap-3">
+            <div className="card shadow-sm p-3 soft-card">
+              <h5 className="card-title">❤️ Sahiplen, Bir Hayat Kurtar</h5>
               {randomAnimal && (
                 <img
                   src={randomAnimal.imageUrl}
@@ -75,8 +74,8 @@ function HomePage() {
             </div>
 
             {/* Alt Kart: Bilgilendirme */}
-            <div className="card custom-home-card shadow-sm p-3">
-              <h5 style={{ color: "#647f9f", fontWeight: "600" }}>📌 Sahiplendirme Kuralları</h5>
+            <div className="card custom-home-card shadow-sm p-3 soft-card">
+              <h5 className="card-title">📌 Sahiplendirme Kuralları</h5>
               <ul style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.6, paddingLeft: "1rem" }}>
                 <li>Sahipleneceğiniz hayvanın tüm sorumluluğu size aittir.</li>
                 <li>Lütfen geçici heveslerle değil, ömürlük sahiplenin.</li>
