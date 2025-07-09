@@ -512,7 +512,7 @@ table tbody td {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'><text x='0' y='80' font-size='80'>🐾</text></svg>");
   background-repeat: repeat;
   background-size: 60px;
-  opacity: 0.08;
+  opacity: 0.035;
   pointer-events: none; /* 👈 En kritik satır */
   z-index: -1;
 }
