@@ -81,6 +81,8 @@ function HomePage() {
                 <li>Lütfen geçici heveslerle değil, ömürlük sahiplenin.</li>
                 <li>Gerekli durumlarda takip süreci yapılabilir.</li>
                 <li>Sahiplendirme sonrası iletişimde kalınması önemlidir.</li>
+                <li>Kısır değilse kısırlaştırılması gerekir.</li>
+                <li>Evinizin camlarına kedi filesi takılmalıdır.</li>
               </ul>
             </div>
           </div>
