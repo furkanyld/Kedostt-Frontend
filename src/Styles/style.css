@@ -497,7 +497,25 @@ table tbody td {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
+.page-background {
+  position: relative;
+  z-index: 0;
+}
 
+.page-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'><text x='0' y='80' font-size='80'>🐾</text></svg>");
+  background-repeat: repeat;
+  background-size: 60px;
+  opacity: 0.08;
+  pointer-events: none; /* 👈 En kritik satır */
+  z-index: -1;
+}
 
 
 /* 🌙 Dark Mode */
