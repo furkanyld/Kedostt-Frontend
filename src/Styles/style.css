@@ -505,11 +505,6 @@ table tbody td {
   background-attachment: fixed;
 }
 
-.page-background {
-  position: relative;
-  z-index: -1;
-}
-
 
 /* 🌙 Dark Mode */
 .dark-mode {
