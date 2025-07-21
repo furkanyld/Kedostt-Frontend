@@ -52,6 +52,11 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
     }
   };
 
+  const cleanPath = (url) => {
+    if (!url) return "";
+    return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+  
   return (
     <>
       <Card className="mb-4 shadow animal-card">
@@ -64,7 +69,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
                     variant="top"
                     src={imgSrc.startsWith("http") || imgSrc.startsWith("data:")
                       ? imgSrc
-                      : `${process.env.REACT_APP_BACKEND_URL}/${imgSrc}`}
+                      : cleanPath(imgSrc)}
                     alt={`${name}-${i}`}
                     className="card-image"
                   />
@@ -92,7 +97,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
           <div className="video-container mt-2">
             <video controls style={{ width: "100%", borderRadius: "10px" }}>
               <source
-                src={videoUrl.startsWith("http") ? videoUrl : `${process.env.REACT_APP_BACKEND_URL}/${videoUrl}`}
+                src={videoUrl.startsWith("http") ? videoUrl : cleanPath(videoUrl)}
                 type="video/mp4"
               />
               Tarayıcınız video oynatmayı desteklemiyor.

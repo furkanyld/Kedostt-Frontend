@@ -54,7 +54,6 @@ function MainNavbar() {
                 {isDarkMode ? "🌞" : "🌙"}
               </button>
             </div>
-
             <Nav className="ms-auto" onClick={() => setExpanded(false)}>
               {!isLoading && (
                 <>
@@ -76,8 +75,6 @@ function MainNavbar() {
               )}
             </Nav>
           </div>
-          {/* 🌙 Toggle button */}
-
         </Navbar.Collapse>
       </Container>
     </Navbar>
