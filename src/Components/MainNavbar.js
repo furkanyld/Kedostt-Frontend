@@ -45,37 +45,38 @@ function MainNavbar() {
             <Nav.Link as={Link} to="/">Ana Sayfa</Nav.Link>
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
-          <div className="d-flex align-items-center">
-            <div className="ms-auto d-flex align-items-center me-3">
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="btn btn-sm btn-outline-dark"
-              >
-                {isDarkMode ? "🌞" : "🌙"}
-              </button>
-            </div>
-            <Nav className="ms-auto" onClick={() => setExpanded(false)}>
-              {!isLoading && (
-                <>
-                  {!user ? (
-                    <>
-                      <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
-                      <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
-                    </>
-                  ) : (
-                    <>
-                      <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
-                      {isAdmin && (
-                        <Nav.Link as={Link} to="/admin" className="navbar-title">Admin Panel</Nav.Link>
-                      )}
-                      <Nav.Link onClick={logout} className="navbar-title">Çıkış Yap</Nav.Link>
-                    </>
-                  )}
-                </>
-              )}
-            </Nav>
-          </div>
+
+          <Nav className="ms-auto align-items-center" onClick={() => setExpanded(false)}>
+            {!isLoading && (
+              <>
+                {!user ? (
+                  <>
+                    <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
+                    <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
+                    {isAdmin && (
+                      <Nav.Link as={Link} to="/admin" className="navbar-title">Admin Panel</Nav.Link>
+                    )}
+                    <Nav.Link onClick={logout} className="navbar-title">Çıkış Yap</Nav.Link>
+                  </>
+                )}
+                {/* 🌙 Dark Mode Butonu */}
+                <Nav.Item className="text-center w-100 mt-2">
+                  <button
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                    className="btn btn-sm btn-outline-dark mx-auto d-block"
+                  >
+                    {isDarkMode ? "🌞" : "🌙"}
+                  </button>
+                </Nav.Item>
+              </>
+            )}
+          </Nav>
         </Navbar.Collapse>
+
       </Container>
     </Navbar>
   );
