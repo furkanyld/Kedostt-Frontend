@@ -18,7 +18,6 @@ function HomePage() {
     <div className="page-background">
       <div className="container py-5">
         <div className="row g-4 flex-column-reverse flex-md-row justify-content-between">
-          {/* Sol içerik */}
           <div className="col-md-7 d-flex flex-column align-items-center text-center">
             <div style={{ maxWidth: "900px" }}>
               <h1 style={{ color: "#647f9f", fontWeight: "700", fontSize: "2rem" }}>
@@ -39,7 +38,6 @@ function HomePage() {
                 📸 Instagram Sayfamız
               </a>
 
-              {/* Alt metin */}
               <div className="mt-5">
                 <h2 style={{ color: "#647f9f", fontWeight: "600", fontSize: "1.4rem" }}>
                   🐶 🐱 Sahiplen | Bağış Yap | Destek Ol
@@ -59,13 +57,12 @@ function HomePage() {
             </div>
           </div>
 
-          {/* Sağ bar */}
           <div className="col-md-4 offset-md-1 d-flex flex-column gap-3">
             <div className="card shadow-sm p-3 soft-card">
               <h5 className="card-title">❤️ Sahiplen, Bir Hayat Kurtar</h5>
-              {randomAnimal && (
+              {randomAnimal?.imageUrls?.length > 0 && (
                 <img
-                  src={randomAnimal.imageUrl}
+                  src={randomAnimal.imageUrls[0]}
                   alt={randomAnimal.name}
                   className="img-fluid rounded my-2"
                   style={{ maxHeight: "250px", objectFit: "cover", width: "100%" }}
@@ -73,7 +70,6 @@ function HomePage() {
               )}
             </div>
 
-            {/* Alt Kart: Bilgilendirme */}
             <div className="card custom-home-card shadow-sm p-3 soft-card">
               <h5 className="card-title">📌 Sahiplendirme Kuralları</h5>
               <ul style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.6, paddingLeft: "1rem" }}>

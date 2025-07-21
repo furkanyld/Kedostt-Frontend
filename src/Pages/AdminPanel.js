@@ -16,7 +16,6 @@ function AdminPanel() {
     ageMonths: 0,
     gender: "",
     description: "",
-    imageUrl: "",
     visible: true,
   });
 
@@ -29,9 +28,13 @@ function AdminPanel() {
     ageMonths: 0,
     gender: "",
     description: "",
-    imageUrl: "",
     visible: true,
   });
+
+  const [images, setImages] = useState([]);
+  const [video, setVideo] = useState(null);
+  const [editImages, setEditImages] = useState([]);
+  const [editVideo, setEditVideo] = useState(null);
 
   const fetchAdoptions = async () => {
     try {
@@ -58,7 +61,19 @@ function AdminPanel() {
 
   const handleAddAnimal = async () => {
     try {
-      await axios.post("/api/animals", formData);
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+      for (let i = 0; i < images.length; i++) {
+        data.append("images", images[i]);
+      }
+      if (video) {
+        data.append("video", video);
+      }
+  
+      await axios.post("/api/animals/upload", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
       fetchAnimals();
       setShowAnimalModal(false);
       setFormData({
@@ -69,13 +84,15 @@ function AdminPanel() {
         ageMonths: 0,
         gender: "",
         description: "",
-        imageUrl: "",
         visible: true,
       });
+      setImages([]);
+      setVideo(null);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleDeleteAnimal = async (id) => {
     try {
@@ -88,13 +105,28 @@ function AdminPanel() {
 
   const handleUpdateAnimal = async () => {
     try {
-      await axios.put(`/api/animals/${editData.id}`, editData);
+      const data = new FormData();
+      Object.entries(editData).forEach(([key, value]) => {
+        if (key !== "id") data.append(key, value);
+      });
+      for (let i = 0; i < editImages.length; i++) {
+        data.append("images", editImages[i]);
+      }
+      if (editVideo) {
+        data.append("video", editVideo);
+      }
+  
+      await axios.put(`/api/animals/upload/${editData.id}`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
       fetchAnimals();
       setShowEditModal(false);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleDeleteAdoption = async (id) => {
     try {
@@ -131,24 +163,6 @@ function AdminPanel() {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleImageToBase64 = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setFormData({ ...formData, imageUrl: reader.result });
-    };
-  };
-
-  const handleEditImageToBase64 = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setEditData({ ...editData, imageUrl: reader.result });
-    };
   };
 
   return (
@@ -276,9 +290,9 @@ function AdminPanel() {
                 <td>{a.gender}</td>
                 <td>{a.description}</td>
                 <td>
-                  {a.imageUrl && (
+                  {a.imageUrls?.length > 0 && (
                     <img
-                      src={a.imageUrl}
+                      src={a.imageUrls[0]}
                       alt={a.name}
                       style={{ width: "80px", borderRadius: "8px" }}
                     />
@@ -411,8 +425,12 @@ function AdminPanel() {
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Resim Yükle</Form.Label>
-              <Form.Control type="file" onChange={handleImageToBase64} />
+              <Form.Label>Görseller (1-3 adet)</Form.Label>
+              <Form.Control type="file" multiple accept="image/*" onChange={(e) => setImages(e.target.files)} />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Video (isteğe bağlı)</Form.Label>
+              <Form.Control type="file" accept="video/*" onChange={(e) => setVideo(e.target.files[0])} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -503,8 +521,12 @@ function AdminPanel() {
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Resim Yükle</Form.Label>
-              <Form.Control type="file" onChange={handleEditImageToBase64} />
+              <Form.Label>Yeni Görseller (varsa)</Form.Label>
+              <Form.Control type="file" multiple accept="image/*" onChange={(e) => setEditImages(e.target.files)} />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Yeni Video (varsa)</Form.Label>
+              <Form.Control type="file" accept="video/*" onChange={(e) => setEditVideo(e.target.files[0])} />
             </Form.Group>
           </Form>
         </Modal.Body>
