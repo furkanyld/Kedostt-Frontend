@@ -112,37 +112,37 @@ function AdminPanel() {
       Object.entries(editData).forEach(([key, value]) => {
         if (key !== "id") data.append(key, value);
       });
-  
+
       // ✅ Yeni satır: mevcut görselleri ekle
       existingImages.forEach(url => {
         data.append("existingImageUrls", url);
       });
-  
+
       // yeni resimler
       for (let i = 0; i < editImages.length; i++) {
         data.append("images", editImages[i]);
       }
-  
+
       // yeni video
       if (editVideo) {
         data.append("video", editVideo);
       }
-  
+
       // silinecekler (zaten vardı)
       imagesToDelete.forEach(url => {
         data.append("deleteImages", url);
       });
-  
+
       await axios.put(`/api/animals/upload/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       fetchAnimals();
       setShowEditModal(false);
     } catch (error) {
       console.error(error);
     }
-  };  
+  };
 
   const handleDeleteAdoption = async (id) => {
     try {
@@ -293,7 +293,7 @@ function AdminPanel() {
               <th>Yaş</th>
               <th>Cinsiyet</th>
               <th>Açıklama</th>
-              <th>Resim</th>
+              <th>Resim / Video</th>
               <th>Sahiplik Durumu</th>
               <th>Yayın Durumu</th>
               <th>İşlemler</th>
@@ -305,9 +305,7 @@ function AdminPanel() {
                 <td>{a.name}</td>
                 <td>{a.species}</td>
                 <td>{a.breed}</td>
-                <td>
-                  {a.ageYears} yıl {a.ageMonths} ay
-                </td>
+                <td>{a.ageYears} yıl {a.ageMonths} ay</td>
                 <td>{a.gender}</td>
                 <td>{a.description}</td>
                 <td>
@@ -315,13 +313,13 @@ function AdminPanel() {
                     <img
                       src={cleanPath(a.imageUrls[0])}
                       alt={a.name}
-                      style={{ width: "80px", borderRadius: "8px", objectFit: "cover" }}
+                      style={{ width: "80px", height: "80px", borderRadius: "8px", objectFit: "cover" }}
                     />
                   )}
                   {a.videoUrl && (
                     <video
                       controls
-                      style={{ width: "80px", borderRadius: "8px", display: "block", marginTop: "8px" }}
+                      style={{ width: "80px", height: "80px", borderRadius: "8px", display: "block", marginTop: "8px" }}
                     >
                       <source src={cleanPath(a.videoUrl)} type="video/mp4" />
                       Tarayıcınız video oynatmayı desteklemiyor.
@@ -329,14 +327,19 @@ function AdminPanel() {
                   )}
                 </td>
                 <td>
-                  {a.visible ? (
-                    <Badge bg="success">Yayında</Badge>
+                  {a.adopted ? (
+                    <Badge bg="secondary">Sahiplendi</Badge>
                   ) : (
-                    <Badge bg="secondary">Yayında Değil</Badge>
+                    <Badge bg="info">Sahip Bekliyor</Badge>
                   )}
                 </td>
                 <td>
-                  <div className="action-buttons d-flex gap-2">
+                  <Badge bg={a.visible ? "success" : "secondary"}>
+                    {a.visible ? "Yayında" : "Yayında Değil"}
+                  </Badge>
+                </td>
+                <td>
+                  <div className="action-buttons d-flex gap-2 flex-wrap">
                     <Button
                       variant="warning"
                       size="sm"
