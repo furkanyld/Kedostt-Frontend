@@ -6,6 +6,7 @@ import axios from "../Api/PublicAxios";
 function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed, gender, ageYears, ageMonths }) {
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showAdoptModal, setShowAdoptModal] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -20,6 +21,8 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
   const handleDonate = () => setShowDonateModal(true);
   const handleCloseDonate = () => setShowDonateModal(false);
   const handleCloseAdopt = () => setShowAdoptModal(false);
+  const handleOpenVideo = () => setShowVideoModal(true);
+  const handleCloseVideo = () => setShowVideoModal(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -56,13 +59,13 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
     if (!url) return "";
     return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
   };
-  
+
   return (
     <>
       <Card className="mb-4 shadow animal-card">
         <div className="card-image-wrapper">
-          {imageUrls?.length > 0 ? (
-            <Carousel>
+          {Array.isArray(imageUrls) && imageUrls.length > 0 ? (
+            <Carousel controls={imageUrls.length > 1}>
               {imageUrls.map((imgSrc, i) => (
                 <Carousel.Item key={i}>
                   <Card.Img
@@ -93,18 +96,6 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
           </div>
         </div>
 
-        {videoUrl && (
-          <div className="video-container mt-2">
-            <video controls style={{ width: "100%", borderRadius: "10px" }}>
-              <source
-                src={videoUrl.startsWith("http") ? videoUrl : cleanPath(videoUrl)}
-                type="video/mp4"
-              />
-              Tarayıcınız video oynatmayı desteklemiyor.
-            </video>
-          </div>
-        )}
-
         <Card.Body>
           <Card.Title className="text-center">{name}</Card.Title>
           <div className="button-group">
@@ -115,8 +106,38 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
               Bağış Yap
             </Button>
           </div>
+
+          {videoUrl && videoUrl.trim() !== "" && (
+            <Button variant="dark" onClick={handleOpenVideo} className="mt-2 w-100">
+              Videoyu İzle
+            </Button>
+          )}
         </Card.Body>
       </Card>
+
+      {/* Video Modal */}
+      <Modal show={showVideoModal} onHide={handleCloseVideo} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{name} - Tanıtım Videosu</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <video
+            controls
+            style={{ width: "100%", borderRadius: "12px" }}
+          >
+            <source
+              src={videoUrl.startsWith("http") ? videoUrl : cleanPath(videoUrl)}
+              type="video/mp4"
+            />
+            Tarayıcınız video oynatmayı desteklemiyor.
+          </video>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseVideo}>
+            Kapat
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       {/* Bağış Modal */}
       <Modal show={showDonateModal} onHide={handleCloseDonate} centered>
