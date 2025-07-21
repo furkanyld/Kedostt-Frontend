@@ -7,6 +7,9 @@ function AdminPanel() {
   const [animals, setAnimals] = useState([]);
   const [showAnimalModal, setShowAnimalModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [existingImages, setExistingImages] = useState([]);
+  const [imagesToDelete, setImagesToDelete] = useState([]);
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -69,11 +72,11 @@ function AdminPanel() {
       if (video) {
         data.append("video", video);
       }
-  
+
       await axios.post("/api/animals/upload", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       fetchAnimals();
       setShowAnimalModal(false);
       setFormData({
@@ -92,7 +95,7 @@ function AdminPanel() {
       console.error(error);
     }
   };
-  
+
 
   const handleDeleteAnimal = async (id) => {
     try {
@@ -109,24 +112,30 @@ function AdminPanel() {
       Object.entries(editData).forEach(([key, value]) => {
         if (key !== "id") data.append(key, value);
       });
+
       for (let i = 0; i < editImages.length; i++) {
         data.append("images", editImages[i]);
       }
+
       if (editVideo) {
         data.append("video", editVideo);
       }
-  
+
+      imagesToDelete.forEach(url => {
+        data.append("deleteImages", url);
+      });
+
       await axios.put(`/api/animals/upload/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       fetchAnimals();
       setShowEditModal(false);
     } catch (error) {
       console.error(error);
     }
   };
-  
+
 
   const handleDeleteAdoption = async (id) => {
     try {
@@ -320,6 +329,10 @@ function AdminPanel() {
                       style={{ color: "white" }}
                       onClick={() => {
                         setEditData(a);
+                        setExistingImages(a.imageUrls || []);
+                        setImagesToDelete([]);
+                        setEditImages([]);
+                        setEditVideo(null);
                         setShowEditModal(true);
                       }}
                     >
@@ -519,6 +532,37 @@ function AdminPanel() {
                   setEditData({ ...editData, description: e.target.value })
                 }
               />
+              <Form.Group className="mb-2">
+                <Form.Label>Mevcut Görseller</Form.Label>
+                <div className="d-flex flex-wrap gap-2">
+                  {existingImages.map((imgUrl, index) => (
+                    <div key={index} className="position-relative" style={{ display: "inline-block" }}>
+                      <img
+                        src={imgUrl}
+                        alt={`existing-${index}`}
+                        style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
+                      />
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                          padding: "2px 6px",
+                          borderRadius: "0 8px 0 8px",
+                        }}
+                        onClick={() => {
+                          setImagesToDelete([...imagesToDelete, imgUrl]);
+                          setExistingImages(existingImages.filter((_, i) => i !== index));
+                        }}
+                      >
+                        ×
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </Form.Group>
             </Form.Group>
             <Form.Group className="mb-2">
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
