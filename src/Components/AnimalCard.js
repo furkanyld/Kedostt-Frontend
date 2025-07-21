@@ -97,20 +97,19 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             <p className="card-description">{description}</p>
           </div>
         </div>
-
         <Card.Body>
           <Card.Title className="text-center">{name}</Card.Title>
-          <div className="button-group">
-            <Button variant="primary" onClick={handleAdopt}>
+          <div className="d-flex gap-2 mb-2">
+            <Button variant="primary" onClick={handleAdopt} className="w-100">
               Sahiplen
             </Button>
-            <Button variant="success" onClick={handleDonate}>
+            <Button variant="success" onClick={handleDonate} className="w-100">
               Bağış Yap
             </Button>
           </div>
 
           {hasValidVideo && (
-            <Button variant="dark" onClick={handleOpenVideo} className="mt-2 w-100">
+            <Button variant="dark" onClick={handleOpenVideo} className="w-100">
               Videoyu İzle
             </Button>
           )}
