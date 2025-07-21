@@ -40,42 +40,44 @@ function MainNavbar() {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
           <Nav className="me-auto" onClick={() => setExpanded(false)}>
             <Nav.Link as={Link} to="/">Ana Sayfa</Nav.Link>
             <Nav.Link as={Link} to="/donate">Sahiplen / Bağış Yap</Nav.Link>
           </Nav>
+          <div className="d-flex align-items-center">
+            <div className="ms-auto d-flex align-items-center me-3">
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="btn btn-sm btn-outline-dark"
+              >
+                {isDarkMode ? "🌞" : "🌙"}
+              </button>
+            </div>
 
-          {/* 🌙 Toggle button */}
-          <div className="ms-auto d-flex align-items-center me-3">
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="btn btn-sm btn-outline-dark"
-            >
-              {isDarkMode ? "🌞" : "🌙"}
-            </button>
+            <Nav className="ms-auto" onClick={() => setExpanded(false)}>
+              {!isLoading && (
+                <>
+                  {!user ? (
+                    <>
+                      <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
+                      <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
+                    </>
+                  ) : (
+                    <>
+                      <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
+                      {isAdmin && (
+                        <Nav.Link as={Link} to="/admin" className="navbar-title">Admin Panel</Nav.Link>
+                      )}
+                      <Nav.Link onClick={logout} className="navbar-title">Çıkış Yap</Nav.Link>
+                    </>
+                  )}
+                </>
+              )}
+            </Nav>
           </div>
+          {/* 🌙 Toggle button */}
 
-          <Nav className="ms-auto" onClick={() => setExpanded(false)}>
-            {!isLoading && (
-              <>
-                {!user ? (
-                  <>
-                    <Nav.Link as={Link} to="/login" className="navbar-title">Giriş Yap</Nav.Link>
-                    <Nav.Link as={Link} to="/signin" className="navbar-title">Kayıt Ol</Nav.Link>
-                  </>
-                ) : (
-                  <>
-                    <Nav.Link as={Link} to="/profile" className="navbar-title">Profilim</Nav.Link>
-                    {isAdmin && (
-                      <Nav.Link as={Link} to="/admin" className="navbar-title">Admin Panel</Nav.Link>
-                    )}
-                    <Nav.Link onClick={logout} className="navbar-title">Çıkış Yap</Nav.Link>
-                  </>
-                )}
-              </>
-            )}
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
