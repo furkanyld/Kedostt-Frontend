@@ -49,15 +49,18 @@
   display: flex;
   align-items: center;
 }
+
 .navbar-title:hover {
   color: #3f5d7a !important;
   text-shadow: 0 2px 10px rgba(100, 127, 159, 0.4);
 }
 
 .navbar-brand {
-  height: 70px; /* navbar yüksekliği ile birebir */
+  height: 70px;
+  /* navbar yüksekliği ile birebir */
   display: flex;
-  align-items: center; /* 👈 logoyu alt sınırla hizalar */
+  align-items: center;
+  /* 👈 logoyu alt sınırla hizalar */
   padding: 0;
 }
 
@@ -261,16 +264,18 @@ table tbody td {
 }
 
 /* Onay ve Red butonları */
-.btn-success, .btn-danger {
+.btn-success,
+.btn-danger {
   font-size: 0.85rem;
   padding: 5px 10px;
   border-radius: 6px;
 }
 
 /* Modal ve Login Card Güncelleme */
-.modal-content, .login-card {
+.modal-content,
+.login-card {
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 /* Navbar Yazı Boyutu */
@@ -321,7 +326,7 @@ h4 {
 /* Görsel */
 .table img {
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Card başlıkları */
@@ -370,12 +375,13 @@ table tbody td {
 /* Görsel */
 .table img {
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Yeni Hayvan Ekle Butonu */
 .add-animal-btn {
-  width: 160px;  /* Düzenle ve Sil toplam genişlik kadar */
+  width: 160px;
+  /* Düzenle ve Sil toplam genişlik kadar */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -391,6 +397,7 @@ table tbody td {
   gap: 8px;
   justify-content: center;
 }
+
 /* Tüm tablo butonları hizalama */
 .action-buttons {
   display: flex;
@@ -480,17 +487,21 @@ table tbody td {
 @media (max-width: 991.98px) {
   .navbar .navbar-collapse {
     position: absolute;
-    top: 70px; /* navbar yüksekliği kadar */
+    top: 70px;
+    /* navbar yüksekliği kadar */
     right: 0;
     width: 80%;
     max-width: 300px;
-    background: linear-gradient(135deg, #ebe4e7, #e6d3f8);    /* Daha yumuşak geçişli arka plan */
+    background: linear-gradient(135deg, #ebe4e7, #e6d3f8);
+    /* Daha yumuşak geçişli arka plan */
     padding: 1rem;
-    box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.2); /* Daha derin gölge */
+    box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.2);
+    /* Daha derin gölge */
     border-radius: 0 0 0 24px;
     z-index: 1000;
     border: 1px solid #e0e0e0;
-    backdrop-filter: blur(6px); /* Blur efekti */
+    backdrop-filter: blur(6px);
+    /* Blur efekti */
     transition: all 0.3s ease-in-out;
   }
 
@@ -516,7 +527,7 @@ table tbody td {
 .soft-card {
   background: linear-gradient(90deg, #dfa3a3 0%, #d6cee6) !important;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .page-background {
@@ -535,10 +546,24 @@ table tbody td {
   background-repeat: repeat;
   background-size: 60px;
   opacity: 0.035;
-  pointer-events: none; /* 👈 En kritik satır */
+  pointer-events: none;
+  /* 👈 En kritik satır */
   z-index: -1;
 }
 
+.btn-outline-dark {
+  border-color: #647f9f;
+  background-color: #647f9f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -0.3rem;
+}
+
+.btn-outline-dark:hover {
+  background-color: #13345c;
+  border-color: #13345c;
+}
 
 /* 🌙 Dark Mode */
 .dark-mode {
@@ -563,13 +588,13 @@ body.dark-mode .soft-card {
 }
 
 .dark-mode .btn-outline-dark {
-  border-color: #ccc;
-  color: #ccc;
+  border-color: #222;
+  background-color: #222;
 }
 
 .dark-mode .btn-outline-dark:hover {
   background-color: #444;
-  color: white;
+  border-color: #444;
 }
 
 /* Dark Mode Global */
@@ -697,7 +722,8 @@ body.dark-mode .login-card .btn {
     top: 70px;
     right: 0;
     width: 70%;
-    background-color: rgba(255, 255, 255, 0.95); /* AÇIK tema için */
+    background-color: rgba(255, 255, 255, 0.95);
+    /* AÇIK tema için */
     padding: 1rem;
     box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 0 16px;
@@ -705,7 +731,8 @@ body.dark-mode .login-card .btn {
   }
 
   body.dark-mode .navbar .navbar-collapse {
-    background-color: rgba(34, 34, 34, 0.95); /* DARK tema için */
+    background-color: rgba(34, 34, 34, 0.95);
+    /* DARK tema için */
     color: #fff;
   }
 
@@ -732,6 +759,7 @@ body.dark-mode .navbar-toggler-icon {
 }
 
 @media (max-width: 991.98px) {
+
   /* Mobil menü içinde buton hizalaması ve padding */
   .navbar-collapse .d-flex.align-items-center.me-3 {
     margin: 0 auto;
@@ -744,6 +772,13 @@ body.dark-mode .navbar-toggler-icon {
   .navbar-collapse .nav-link {
     text-align: center;
     width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar .nav-link {
+    white-space: nowrap;
+    margin-right: 10px;
   }
 }
 
@@ -773,7 +808,8 @@ body.dark-mode .navbar-toggler-icon {
 
 @media (max-width: 991.98px) {
   body.dark-mode .navbar .navbar-collapse {
-    background: linear-gradient(135deg, #2b2b2b, #3d3d3d); /* Dark mode arka plan */
+    background: linear-gradient(135deg, #2b2b2b, #3d3d3d);
+    /* Dark mode arka plan */
     color: #f0f0f0;
     border: 1px solid #444;
   }
@@ -800,3 +836,19 @@ body.dark-mode .navbar-toggler-icon {
   }
 }
 
+/* Masaüstü görünümde dark mode butonu hizalama */
+@media (min-width: 992px) {
+  .navbar .dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 70px;
+  }
+
+  .navbar .dark-mode-toggle button {
+    margin: 0;
+    padding: 6px 10px;
+    vertical-align: middle;
+  }
+}
