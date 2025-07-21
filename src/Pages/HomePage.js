@@ -14,6 +14,11 @@ function HomePage() {
       .catch((err) => console.error(err));
   }, []);
 
+  const cleanPath = (url) => {
+    if (!url) return "";
+    return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+
   return (
     <div className="page-background">
       <div className="container py-5">
@@ -60,10 +65,18 @@ function HomePage() {
           <div className="col-md-4 offset-md-1 d-flex flex-column gap-3">
             <div className="card shadow-sm p-3 soft-card">
               <h5 className="card-title">❤️ Sahiplen, Bir Hayat Kurtar</h5>
-              {randomAnimal?.imageUrls?.length > 0 && (
+
+              {randomAnimal?.imageUrls?.length > 0 ? (
                 <img
-                  src={randomAnimal.imageUrls[0]}
+                  src={cleanPath(randomAnimal.imageUrls[0])}
                   alt={randomAnimal.name}
+                  className="img-fluid rounded my-2"
+                  style={{ maxHeight: "250px", objectFit: "cover", width: "100%" }}
+                />
+              ) : (
+                <img
+                  src="/placeholder.jpg"
+                  alt="Görsel yok"
                   className="img-fluid rounded my-2"
                   style={{ maxHeight: "250px", objectFit: "cover", width: "100%" }}
                 />

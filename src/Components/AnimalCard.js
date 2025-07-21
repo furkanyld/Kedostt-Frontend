@@ -60,6 +60,8 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
     return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
+  const hasValidVideo = videoUrl && videoUrl.trim() !== "";
+
   return (
     <>
       <Card className="mb-4 shadow animal-card">
@@ -107,7 +109,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             </Button>
           </div>
 
-          {videoUrl && videoUrl.trim() !== "" && (
+          {hasValidVideo && (
             <Button variant="dark" onClick={handleOpenVideo} className="mt-2 w-100">
               Videoyu İzle
             </Button>
@@ -115,29 +117,28 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
         </Card.Body>
       </Card>
 
-      {/* Video Modal */}
-      <Modal show={showVideoModal} onHide={handleCloseVideo} centered size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>{name} - Tanıtım Videosu</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <video
-            controls
-            style={{ width: "100%", borderRadius: "12px" }}
-          >
-            <source
-              src={videoUrl.startsWith("http") ? videoUrl : cleanPath(videoUrl)}
-              type="video/mp4"
-            />
-            Tarayıcınız video oynatmayı desteklemiyor.
-          </video>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseVideo}>
-            Kapat
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Video Modal (sadece video varsa göster) */}
+      {hasValidVideo && (
+        <Modal show={showVideoModal} onHide={handleCloseVideo} centered size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>{name} - Tanıtım Videosu</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <video controls style={{ width: "100%", borderRadius: "12px" }}>
+              <source
+                src={videoUrl.startsWith("http") ? videoUrl : cleanPath(videoUrl)}
+                type="video/mp4"
+              />
+              Tarayıcınız video oynatmayı desteklemiyor.
+            </video>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseVideo}>
+              Kapat
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Bağış Modal */}
       <Modal show={showDonateModal} onHide={handleCloseDonate} centered>
