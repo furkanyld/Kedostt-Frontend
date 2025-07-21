@@ -112,30 +112,37 @@ function AdminPanel() {
       Object.entries(editData).forEach(([key, value]) => {
         if (key !== "id") data.append(key, value);
       });
-
+  
+      // ✅ Yeni satır: mevcut görselleri ekle
+      existingImages.forEach(url => {
+        data.append("existingImageUrls", url);
+      });
+  
+      // yeni resimler
       for (let i = 0; i < editImages.length; i++) {
         data.append("images", editImages[i]);
       }
-
+  
+      // yeni video
       if (editVideo) {
         data.append("video", editVideo);
       }
-
+  
+      // silinecekler (zaten vardı)
       imagesToDelete.forEach(url => {
         data.append("deleteImages", url);
       });
-
+  
       await axios.put(`/api/animals/upload/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       fetchAnimals();
       setShowEditModal(false);
     } catch (error) {
       console.error(error);
     }
-  };
-
+  };  
 
   const handleDeleteAdoption = async (id) => {
     try {
@@ -545,7 +552,7 @@ function AdminPanel() {
                   {existingImages.map((imgUrl, index) => (
                     <div key={index} className="position-relative" style={{ display: "inline-block" }}>
                       <img
-                        src={imgUrl}
+                        src={cleanPath(imgUrl)}
                         alt={`existing-${index}`}
                         style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
                       />
