@@ -9,6 +9,7 @@ function AdminPanel() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [existingImages, setExistingImages] = useState([]);
   const [imagesToDelete, setImagesToDelete] = useState([]);
+  const [deleteVideo, setDeleteVideo] = useState(false);
 
 
   const [formData, setFormData] = useState({
@@ -128,10 +129,15 @@ function AdminPanel() {
         data.append("video", editVideo);
       }
 
-      // silinecekler (zaten vardı)
+      // silinecekler 
       imagesToDelete.forEach(url => {
         data.append("deleteImages", url);
       });
+
+      // video silinecekse backend'e bildir
+      if (deleteVideo) {
+        data.append("deleteVideo", "true");
+      }
 
       await axios.put(`/api/animals/upload/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -142,6 +148,8 @@ function AdminPanel() {
     } catch (error) {
       console.error(error);
     }
+
+    setDeleteVideo(false);
   };
 
   const handleDeleteAdoption = async (id) => {
@@ -350,6 +358,7 @@ function AdminPanel() {
                         setImagesToDelete([]);
                         setEditImages([]);
                         setEditVideo(null);
+                        setDeleteVideo(false);
                         setShowEditModal(true);
                       }}
                     >
@@ -585,6 +594,35 @@ function AdminPanel() {
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
               <Form.Control type="file" multiple accept="image/*" onChange={(e) => setEditImages(e.target.files)} />
             </Form.Group>
+            {editData.videoUrl && !deleteVideo && (
+              <div className="mb-2">
+                <Form.Label>Mevcut Video</Form.Label>
+                <div style={{ position: "relative", display: "inline-block" }}>
+                  <video
+                    controls
+                    width="100%"
+                    style={{ borderRadius: "8px", maxHeight: "250px" }}
+                  >
+                    <source src={cleanPath(editData.videoUrl)} type="video/mp4" />
+                    Tarayıcınız video oynatmayı desteklemiyor.
+                  </video>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    style={{
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                      padding: "2px 6px",
+                      borderRadius: "6px"
+                    }}
+                    onClick={() => setDeleteVideo(true)}
+                  >
+                    ×
+                  </Button>
+                </div>
+              </div>
+            )}
             <Form.Group className="mb-2">
               <Form.Label>Yeni Video (varsa)</Form.Label>
               <Form.Control type="file" accept="video/*" onChange={(e) => setEditVideo(e.target.files[0])} />
@@ -592,7 +630,10 @@ function AdminPanel() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+          <Button variant="secondary" onClick={() => {
+            setShowEditModal(false);
+            setDeleteVideo(false); 
+          }}>
             İptal
           </Button>
           <Button variant="primary" onClick={handleUpdateAnimal}>
