@@ -44,12 +44,13 @@ function DonatePage() {
                   id={animal.id}
                   name={animal.name}
                   description={animal.description}
-                  image={animal.imageUrl}
+                  imageUrls={animal.imageUrls}
                   species={animal.species}
                   breed={animal.breed}
                   gender={animal.gender}
                   ageYears={animal.ageYears}
                   ageMonths={animal.ageMonths}
+                  videoUrl={animal.videoUrl}
                 />
               </div>
             ))
