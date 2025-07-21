@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button, Modal, Form } from "react-bootstrap";
+import { Card, Button, Modal, Form, Carousel } from "react-bootstrap";
 import "../Styles/style.css";
 import axios from "../Api/PublicAxios";
 
-function AnimalCard({ name, description, image, id, species, breed, gender, ageYears, ageMonths }) {
+function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed, gender, ageYears, ageMonths }) {
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showAdoptModal, setShowAdoptModal] = useState(false);
 
@@ -56,12 +56,30 @@ function AnimalCard({ name, description, image, id, species, breed, gender, ageY
     <>
       <Card className="mb-4 shadow animal-card">
         <div className="card-image-wrapper">
-          <Card.Img
-            variant="top"
-            src={image}
-            alt={name}
-            className="card-image"
-          />
+          {imageUrls?.length > 0 ? (
+            <Carousel>
+              {imageUrls.map((imgSrc, i) => (
+                <Carousel.Item key={i}>
+                  <Card.Img
+                    variant="top"
+                    src={imgSrc.startsWith("http") || imgSrc.startsWith("data:")
+                      ? imgSrc
+                      : `${process.env.REACT_APP_BACKEND_URL}/${imgSrc}`}
+                    alt={`${name}-${i}`}
+                    className="card-image"
+                  />
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          ) : (
+            <Card.Img
+              variant="top"
+              src="/placeholder.jpg"
+              alt="Görsel Yok"
+              className="card-image"
+            />
+          )}
+
           <div className="card-overlay">
             <h5>{name}</h5>
             <p>{gender} / {breed} / {species}</p>
@@ -69,6 +87,19 @@ function AnimalCard({ name, description, image, id, species, breed, gender, ageY
             <p className="card-description">{description}</p>
           </div>
         </div>
+
+        {videoUrl && (
+          <div className="video-container mt-2">
+            <video controls style={{ width: "100%", borderRadius: "10px" }}>
+              <source
+                src={videoUrl.startsWith("http") ? videoUrl : `${process.env.REACT_APP_BACKEND_URL}/${videoUrl}`}
+                type="video/mp4"
+              />
+              Tarayıcınız video oynatmayı desteklemiyor.
+            </video>
+          </div>
+        )}
+
         <Card.Body>
           <Card.Title className="text-center">{name}</Card.Title>
           <div className="button-group">
