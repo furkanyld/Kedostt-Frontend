@@ -174,6 +174,11 @@ function AdminPanel() {
     }
   };
 
+  const cleanPath = (url) => {
+    if (!url) return "";
+    return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+
   return (
     <div className="container mt-5">
       <h2>Admin Paneli</h2>
@@ -301,17 +306,19 @@ function AdminPanel() {
                 <td>
                   {a.imageUrls?.length > 0 && (
                     <img
-                      src={a.imageUrls[0]}
+                      src={cleanPath(a.imageUrls[0])}
                       alt={a.name}
-                      style={{ width: "80px", borderRadius: "8px" }}
+                      style={{ width: "80px", borderRadius: "8px", objectFit: "cover" }}
                     />
                   )}
-                </td>
-                <td>
-                  {a.adopted ? (
-                    <Badge bg="success">Sahiplenildi</Badge>
-                  ) : (
-                    <Badge bg="secondary">Bekliyor</Badge>
+                  {a.videoUrl && (
+                    <video
+                      controls
+                      style={{ width: "80px", borderRadius: "8px", display: "block", marginTop: "8px" }}
+                    >
+                      <source src={cleanPath(a.videoUrl)} type="video/mp4" />
+                      Tarayıcınız video oynatmayı desteklemiyor.
+                    </video>
                   )}
                 </td>
                 <td>
