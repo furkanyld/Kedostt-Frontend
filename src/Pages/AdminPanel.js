@@ -63,33 +63,40 @@ function AdminPanel() {
     fetchAnimals();
   }, []);
 
+  const uploadToImageKit = async (file) => {
+    const form = new FormData();
+    form.append("file", file);
+    const res = await axios.post("/images/upload", form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data; // { url: "...", fileId: "..." }
+  };
+
   const handleAddAnimal = async () => {
     try {
-      const data = new FormData();
-      Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+      const uploadedImages = [];
       for (let i = 0; i < images.length; i++) {
-        data.append("images", images[i]);
+        const res = await uploadToImageKit(images[i]);
+        uploadedImages.push(res);
       }
+  
+      let uploadedVideo = null;
       if (video) {
-        data.append("video", video);
+        uploadedVideo = await uploadToImageKit(video);
       }
-
-      await axios.post("/api/animals/upload", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+  
+      const payload = {
+        ...formData,
+        imageUrls: uploadedImages.map((img) => img.url),
+        imageFileIds: uploadedImages.map((img) => img.fileId),
+        videoUrl: uploadedVideo?.url || null,
+        videoFileId: uploadedVideo?.fileId || null,
+      };
+  
+      await axios.post("/api/animals", payload);
       fetchAnimals();
       setShowAnimalModal(false);
-      setFormData({
-        name: "",
-        species: "",
-        breed: "",
-        ageYears: 0,
-        ageMonths: 0,
-        gender: "",
-        description: "",
-        visible: true,
-      });
+      setFormData({ name: "", species: "", breed: "", ageYears: 0, ageMonths: 0, gender: "", description: "", visible: true });
       setImages([]);
       setVideo(null);
     } catch (error) {
@@ -109,48 +116,65 @@ function AdminPanel() {
 
   const handleUpdateAnimal = async () => {
     try {
+      const uploadedImages = [];
+      for (let i = 0; i < editImages.length; i++) {
+        const res = await uploadToImageKit(editImages[i]);
+        uploadedImages.push(res); // {url, fileId}
+      }
+  
+      let uploadedVideo = null;
+      if (editVideo) {
+        uploadedVideo = await uploadToImageKit(editVideo);
+      }
+  
       const data = new FormData();
+  
+      // Animal bilgileri
       Object.entries(editData).forEach(([key, value]) => {
         if (key !== "id") data.append(key, value);
       });
-
-      // ✅ Yeni satır: mevcut görselleri ekle
-      existingImages.forEach(img => {
+  
+      // Mevcut görseller
+      existingImages.forEach((img) => {
         data.append("existingImageUrls", img.url);
+        data.append("existingImageFileIds", img.fileId);
       });
-
-      // yeni resimler
-      for (let i = 0; i < editImages.length; i++) {
-        data.append("images", editImages[i]);
+  
+      // Yeni yüklenen görseller
+      uploadedImages.forEach((img) => {
+        data.append("imageUrls", img.url);
+        data.append("imageFileIds", img.fileId);
+      });
+  
+      // Yeni video varsa
+      if (uploadedVideo) {
+        data.append("videoUrl", uploadedVideo.url);
+        data.append("videoFileId", uploadedVideo.fileId);
       }
-
-      // yeni video
-      if (editVideo) {
-        data.append("video", editVideo);
-      }
-
-      // silinecekler 
-      imagesToDelete.forEach(img => {
+  
+      // Silinmesi istenen eski resimler
+      imagesToDelete.forEach((img) => {
         data.append("deleteImageFileIds", img.fileId);
       });
-
-      // video silinecekse backend'e bildir
+  
       if (deleteVideo) {
         data.append("deleteVideo", "true");
       }
-
-      await axios.put(`/api/animals/upload/${editData.id}`, data, {
+  
+      // Yeni yapılandırılmış endpoint
+      await axios.put(`/api/animals/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       fetchAnimals();
       setShowEditModal(false);
+      setEditImages([]);
+      setEditVideo(null);
+      setDeleteVideo(false);
     } catch (error) {
-      console.error(error);
+      console.error("Update error:", error.response?.data || error.message);
     }
-
-    setDeleteVideo(false);
-  };
+  };  
 
   const handleDeleteAdoption = async (id) => {
     try {
