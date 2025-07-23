@@ -57,6 +57,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
 
   const cleanPath = (url) => {
     if (!url) return "";
+    if (url.startsWith("http") || url.startsWith("data:")) return url;
     return `${process.env.REACT_APP_BACKEND_URL}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
