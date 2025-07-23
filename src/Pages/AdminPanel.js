@@ -131,7 +131,7 @@ function AdminPanel() {
 
       // silinecekler 
       imagesToDelete.forEach(img => {
-        data.append("deleteImageFileIds", img.fileId); 
+        data.append("deleteImageFileIds", img.fileId);
       });
 
       // video silinecekse backend'e bildir
@@ -559,74 +559,75 @@ function AdminPanel() {
                   setEditData({ ...editData, description: e.target.value })
                 }
               />
-              <Form.Group className="mb-2">
-                <Form.Label>Mevcut Görseller</Form.Label>
-                <div className="d-flex flex-wrap gap-2">
-                  {existingImages.map((imgObj, index) => (
-                    <div key={index} className="position-relative" style={{ display: "inline-block" }}>
-                      <img
-                        src={cleanPath(imgObj.url)}
-                        alt={`existing-${index}`}
-                        style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
-                      />
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          right: 0,
-                          padding: "2px 6px",
-                          borderRadius: "0 8px 0 8px",
-                        }}
-                        onClick={() => {
-                          setImagesToDelete([...imagesToDelete, imgObj]); // 🔥 hem url hem fileId ile
-                          setExistingImages(existingImages.filter((_, i) => i !== index));
-                        }}
-                      >
-                        ×
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </Form.Group>
-              <Form.Group className="mb-2">
-                <Form.Label>Yeni Görseller (varsa)</Form.Label>
-                <Form.Control type="file" multiple accept="image/*" onChange={(e) => setEditImages(e.target.files)} />
-              </Form.Group>
-              {editData.videoUrl && !deleteVideo && (
-                <div className="mb-2">
-                  <Form.Label>Mevcut Video</Form.Label>
-                  <div style={{ position: "relative", display: "inline-block" }}>
-                    <video
-                      controls
-                      width="100%"
-                      style={{ borderRadius: "8px", maxHeight: "250px" }}
-                    >
-                      <source src={cleanPath(editData.videoUrl)} type="video/mp4" />
-                      Tarayıcınız video oynatmayı desteklemiyor.
-                    </video>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Mevcut Görseller</Form.Label>
+              <div className="d-flex flex-wrap gap-2">
+                {existingImages.map((imgObj, index) => (
+                  <div key={index} className="position-relative" style={{ display: "inline-block" }}>
+                    <img
+                      src={cleanPath(imgObj.url)}
+                      alt={`existing-${index}`}
+                      style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
+                    />
                     <Button
                       variant="danger"
                       size="sm"
                       style={{
                         position: "absolute",
-                        top: "5px",
-                        right: "5px",
+                        top: 0,
+                        right: 0,
                         padding: "2px 6px",
-                        borderRadius: "6px"
+                        borderRadius: "0 8px 0 8px",
                       }}
-                      onClick={() => setDeleteVideo(true)}
+                      onClick={() => {
+                        setImagesToDelete([...imagesToDelete, imgObj]); // 🔥 hem url hem fileId ile
+                        setExistingImages(existingImages.filter((_, i) => i !== index));
+                      }}
                     >
                       ×
                     </Button>
                   </div>
+                ))}
+              </div>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Yeni Görseller (varsa)</Form.Label>
+              <Form.Control type="file" multiple accept="image/*" onChange={(e) => setEditImages(e.target.files)} />
+            </Form.Group>
+            {editData.videoUrl && !deleteVideo && (
+              <div className="mb-2">
+                <Form.Label>Mevcut Video</Form.Label>
+                <div style={{ position: "relative", display: "inline-block" }}>
+                  <video
+                    controls
+                    width="100%"
+                    style={{ borderRadius: "8px", maxHeight: "250px" }}
+                  >
+                    <source src={cleanPath(editData.videoUrl)} type="video/mp4" />
+                    Tarayıcınız video oynatmayı desteklemiyor.
+                  </video>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    style={{
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                      padding: "2px 6px",
+                      borderRadius: "6px"
+                    }}
+                    onClick={() => setDeleteVideo(true)}
+                  >
+                    ×
+                  </Button>
                 </div>
-              )}
-              <Form.Group className="mb-2">
-                <Form.Label>Yeni Video (varsa)</Form.Label>
-                <Form.Control type="file" accept="video/*" onChange={(e) => setEditVideo(e.target.files[0])} />
-              </Form.Group>
+              </div>
+            )}
+            <Form.Group className="mb-2">
+              <Form.Label>Yeni Video (varsa)</Form.Label>
+              <Form.Control type="file" accept="video/*" onChange={(e) => setEditVideo(e.target.files[0])} />
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
