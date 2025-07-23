@@ -79,12 +79,12 @@ function AdminPanel() {
         const res = await uploadToImageKit(images[i]);
         uploadedImages.push(res);
       }
-  
+
       let uploadedVideo = null;
       if (video) {
         uploadedVideo = await uploadToImageKit(video);
       }
-  
+
       const payload = {
         ...formData,
         imageUrls: uploadedImages.map((img) => img.url),
@@ -92,7 +92,7 @@ function AdminPanel() {
         videoUrl: uploadedVideo?.url || null,
         videoFileId: uploadedVideo?.fileId || null,
       };
-  
+
       await axios.post("/api/animals", payload);
       fetchAnimals();
       setShowAnimalModal(false);
@@ -121,51 +121,51 @@ function AdminPanel() {
         const res = await uploadToImageKit(editImages[i]);
         uploadedImages.push(res); // {url, fileId}
       }
-  
+
       let uploadedVideo = null;
       if (editVideo) {
         uploadedVideo = await uploadToImageKit(editVideo);
       }
-  
+
       const data = new FormData();
-  
+
       // Animal bilgileri
       Object.entries(editData).forEach(([key, value]) => {
         if (key !== "id") data.append(key, value);
       });
-  
+
       // Mevcut görseller
       existingImages.forEach((img) => {
         data.append("existingImageUrls", img.url);
         data.append("existingImageFileIds", img.fileId);
       });
-  
+
       // Yeni yüklenen görseller
       uploadedImages.forEach((img) => {
         data.append("imageUrls", img.url);
         data.append("imageFileIds", img.fileId);
       });
-  
+
       // Yeni video varsa
       if (uploadedVideo) {
         data.append("videoUrl", uploadedVideo.url);
         data.append("videoFileId", uploadedVideo.fileId);
       }
-  
+
       // Silinmesi istenen eski resimler
       imagesToDelete.forEach((img) => {
         data.append("deleteImageFileIds", img.fileId);
       });
-  
+
       if (deleteVideo) {
         data.append("deleteVideo", "true");
       }
-  
+
       // Yeni yapılandırılmış endpoint
       await axios.put(`/api/animals/${editData.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       fetchAnimals();
       setShowEditModal(false);
       setEditImages([]);
@@ -174,7 +174,7 @@ function AdminPanel() {
     } catch (error) {
       console.error("Update error:", error.response?.data || error.message);
     }
-  };  
+  };
 
   const handleDeleteAdoption = async (id) => {
     try {
@@ -215,7 +215,7 @@ function AdminPanel() {
 
   const cleanPath = (url) => {
     if (!url) return "";
-    return url; 
+    return url;
   };
 
   return (
@@ -378,7 +378,12 @@ function AdminPanel() {
                       style={{ color: "white" }}
                       onClick={() => {
                         setEditData(a);
-                        setExistingImages(a.imageUrls || []);
+                        setExistingImages(
+                          a.imageUrls?.map((url, i) => ({
+                            url,
+                            fileId: a.imageFileIds?.[i] || null,
+                          })) || []
+                        );
                         setImagesToDelete([]);
                         setEditImages([]);
                         setEditVideo(null);
