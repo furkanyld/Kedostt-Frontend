@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import axios from "../Api/PrivateAxios"; // ✅ token doğrulama için eklendi
 
 const AuthContext = createContext();
 
@@ -8,20 +9,31 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true); // ✅ ekledik
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUser({
-          username: decoded.sub,
-          role: decoded.roles || decoded.role,
-        });
-      } catch (err) {
-        console.error("Token decode hatası:", err);
-        localStorage.removeItem("token");
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          // 1. Token sunucu tarafından geçerli mi kontrol et
+          await axios.get("/api/auth/validate"); // ✅ backend'e token kontrolü
+          
+          // 2. Sunucu geçerli diyorsa decode et ve user'ı ayarla
+          const decoded = jwtDecode(token);
+          setUser({
+            username: decoded.sub,
+            role: decoded.roles || decoded.role,
+          });
+        } catch (err) {
+          console.error("Token geçersiz:", err);
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.removeItem("role");
+          setUser(null);
+        }
       }
-    }
-    setIsLoading(false); 
+      setIsLoading(false); 
+    };
+
+    validateToken();
   }, []);
 
   const login = (token) => {
@@ -38,6 +50,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
     setUser(null);
   };
 
