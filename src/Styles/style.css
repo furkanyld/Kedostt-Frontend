@@ -865,12 +865,13 @@ body.dark-mode .navbar-toggler-icon {
 }
 
 .animal-name-strip {
-  background-color: #ff8181; /* Sarımsı bir renk (isteğe göre değiştirilebilir) */
+  color: #375880;
+  font-weight: bold;
+  background: linear-gradient(90deg, #da9595 0%, #c9bddf 100%); /* Sarımsı bir renk (isteğe göre değiştirilebilir) */
   padding: 8px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 0.5px;
-  color: #333;
+  letter-spacing: 0.7px;
   border-bottom: 1px solid #a83f3f;
 }
 
