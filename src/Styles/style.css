@@ -877,7 +877,7 @@ body.dark-mode .navbar-toggler-icon {
 }
 
 .dark-mode .animal-name-strip {
-  background-color: #995050;
-  color: #375880;
+  background: linear-gradient(90deg, #704040 0%, #5e5272 100%);
+  color: #a5b6ca;
   border-bottom: 1px solid #612020;
 }
