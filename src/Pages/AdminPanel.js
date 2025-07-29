@@ -12,8 +12,6 @@ function AdminPanel() {
   const [deleteVideo, setDeleteVideo] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
-  const cleanedVideoUrl = editData.videoUrl?.split(",").find(v => v?.startsWith("http"));
-
   const [formData, setFormData] = useState({
     name: "",
     species: "",
@@ -429,11 +427,8 @@ function AdminPanel() {
                         ? a.videoUrl[0]
                         : a.videoUrl?.split(",").pop();
 
-                        setEditData({
-                          ...a,
-                          videoUrl: cleanedVideoUrl,
-                        });
-                        
+                        setEditData(a);
+
                         setExistingImages(
                           a.imageUrls?.map((url, i) => ({
                             url,
@@ -701,7 +696,11 @@ function AdminPanel() {
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
               <Form.Control type="file" multiple accept="image/*" onChange={handleEditImageSelect} />
             </Form.Group>
-            {cleanedVideoUrl  && !deleteVideo && (
+            {editData.videoUrl  && !deleteVideo && (() => {
+                const cleanedVideoUrl = Array.isArray(editData.videoUrl)
+                ? editData.videoUrl[0]
+                : editData.videoUrl?.split(",").pop();
+              return (
               <div className="mb-2">
                 <Form.Label>Mevcut Video</Form.Label>
                 <div style={{ position: "relative", display: "inline-block" }}>
@@ -732,7 +731,7 @@ function AdminPanel() {
                   </Button>
                 </div>
               </div>
-            )}
+            )})()}
             <Form.Group className="mb-2">
               <Form.Label>Yeni Video (varsa)</Form.Label>
               <Form.Control
