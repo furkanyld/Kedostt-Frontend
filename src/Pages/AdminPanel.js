@@ -10,6 +10,7 @@ function AdminPanel() {
   const [existingImages, setExistingImages] = useState([]);
   const [imagesToDelete, setImagesToDelete] = useState([]);
   const [deleteVideo, setDeleteVideo] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
 
   const [formData, setFormData] = useState({
@@ -66,10 +67,17 @@ function AdminPanel() {
   const uploadToImageKit = async (file) => {
     const form = new FormData();
     form.append("file", file);
-    const res = await axios.post("/images/upload", form, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    return res.data; // { url: "...", fileId: "..." }
+    form.append("fileName", file.name);
+    form.append("useUniqueFileName", "false");
+    setIsUploading(true);
+    try {
+      const res = await axios.post("/images/upload", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return res.data;
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleAddAnimal = async () => {
@@ -123,8 +131,8 @@ function AdminPanel() {
       }
 
       let uploadedVideo = null;
-      if (editVideo) {
-        uploadedVideo = await uploadToImageKit(editVideo);
+      if (editVideo?.url && editVideo?.fileId) {
+        uploadedVideo = editVideo;
       }
 
       const data = new FormData();
@@ -184,6 +192,18 @@ function AdminPanel() {
       console.error(error);
     }
   };
+
+  const handleEditImageSelect = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+
+    const uniqueFiles = selectedFiles.filter((file) =>
+      !existingImages.some(img => img.url.includes(file.name)) &&
+      !editImages.some(existing => existing.name === file.name)
+    );
+
+    setEditImages((prev) => [...prev, ...uniqueFiles]);
+  };
+
 
   const handleApproveAdoption = async (id) => {
     try {
@@ -421,6 +441,11 @@ function AdminPanel() {
           <Modal.Title>Yeni Hayvan Ekle</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {isUploading && (
+            <div className="text-center text-info mb-3">
+              Dosyalar yükleniyor, lütfen bekleyin...
+            </div>
+          )}
           <Form>
             <Form.Group className="mb-2">
               <Form.Label>Ad</Form.Label>
@@ -498,7 +523,20 @@ function AdminPanel() {
             </Form.Group>
             <Form.Group className="mb-2">
               <Form.Label>Video (isteğe bağlı)</Form.Label>
-              <Form.Control type="file" accept="video/*" onChange={(e) => setVideo(e.target.files[0])} />
+              <Form.Control
+                type="file"
+                accept="video/*"
+                onChange={async (e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+
+                  const uploaded = await uploadToImageKit(file);
+                  setEditVideo({
+                    url: uploaded.url,
+                    fileId: uploaded.fileId,
+                  });
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -511,12 +549,19 @@ function AdminPanel() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+
       {/* Hayvan Güncelle Modalı */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Hayvanı Güncelle</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {isUploading && (
+            <div className="text-center text-info mb-3">
+              Dosyalar yükleniyor, lütfen bekleyin...
+            </div>
+          )}
           <Form>
             <Form.Group className="mb-2">
               <Form.Label>Ad</Form.Label>
@@ -621,7 +666,7 @@ function AdminPanel() {
             </Form.Group>
             <Form.Group className="mb-2">
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
-              <Form.Control type="file" multiple accept="image/*" onChange={(e) => setEditImages(e.target.files)} />
+              <Form.Control type="file" multiple accept="image/*" onChange={handleEditImageSelect} />
             </Form.Group>
             {editData.videoUrl && !deleteVideo && (
               <div className="mb-2">
@@ -645,7 +690,10 @@ function AdminPanel() {
                       padding: "2px 6px",
                       borderRadius: "6px"
                     }}
-                    onClick={() => setDeleteVideo(true)}
+                    onClick={() => {
+                      setDeleteVideo(true);
+                      setEditData(prev => ({ ...prev, videoUrl: null }));
+                    }}
                   >
                     ×
                   </Button>
@@ -654,7 +702,20 @@ function AdminPanel() {
             )}
             <Form.Group className="mb-2">
               <Form.Label>Yeni Video (varsa)</Form.Label>
-              <Form.Control type="file" accept="video/*" onChange={(e) => setEditVideo(e.target.files[0])} />
+              <Form.Control
+                type="file"
+                accept="video/*"
+                onChange={async (e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+
+                  const uploaded = await uploadToImageKit(file);
+                  setEditVideo({
+                    url: uploaded.url,
+                    fileId: uploaded.fileId,
+                  });
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -662,6 +723,10 @@ function AdminPanel() {
           <Button variant="secondary" onClick={() => {
             setShowEditModal(false);
             setDeleteVideo(false);
+            setEditImages([]);
+            setEditVideo(null);
+            setImagesToDelete([]);
+            setExistingImages([]);
           }}>
             İptal
           </Button>

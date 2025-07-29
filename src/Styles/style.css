@@ -852,3 +852,14 @@ body.dark-mode .navbar-toggler-icon {
     vertical-align: middle;
   }
 }
+
+.animal-info-box {
+  background-color: rgba(240, 240, 240, 0.95);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+.dark-mode .animal-info-box {
+  background-color: rgba(50, 50, 50, 0.9);
+  color: #f0f0f0;
+}

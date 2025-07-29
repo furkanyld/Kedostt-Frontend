@@ -7,6 +7,8 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showAdoptModal, setShowAdoptModal] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -57,7 +59,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
 
   const cleanPath = (url) => {
     if (!url) return "";
-    return url; 
+    return url;
   };
 
   const hasValidVideo = videoUrl && videoUrl.trim() !== "";
@@ -90,7 +92,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             />
           )}
 
-          <div className="card-overlay">
+          <div className="card-overlay d-none d-md-block">
             <h5>{name}</h5>
             <p>{gender} / {breed} / {species}</p>
             <p>Yaş: {ageYears} yıl {ageMonths} ay</p>
@@ -98,6 +100,22 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
           </div>
         </div>
         <Card.Body>
+          <Button
+            variant="outline-info"
+            className="w-100 mb-2"
+            onClick={() => setShowDetails(!showDetails)}
+          >
+            {showDetails ? "Detayları Gizle" : "Detayları Göster"}
+          </Button>
+          {showDetails && (
+            <div className="animal-info-box mt-2">
+              <p><strong>Cinsiyet:</strong> {gender}</p>
+              <p><strong>Tür:</strong> {species}</p>
+              <p><strong>Cins:</strong> {breed}</p>
+              <p><strong>Yaş:</strong> {ageYears} yıl {ageMonths} ay</p>
+              <p><strong>Açıklama:</strong> {description}</p>
+            </div>
+          )}
           <Card.Title className="text-center">{name}</Card.Title>
           <div className="d-flex gap-2 mb-2">
             <Button variant="primary" onClick={handleAdopt} className="w-100">
