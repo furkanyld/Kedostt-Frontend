@@ -164,9 +164,12 @@ function AdminPanel() {
 
       // Yeni yüklenen görseller
       uploadedImages.forEach((img) => {
-        data.append("imageUrls", img.url);
-        data.append("imageFileIds", img.fileId);
-      });
+        const alreadyExists = existingImages.some(existing => existing.url === img.url || existing.fileId === img.fileId);
+        if (!alreadyExists) {
+          data.append("imageUrls", img.url);
+          data.append("imageFileIds", img.fileId);
+        }
+      });      
 
       // Yeni video varsa
       if (uploadedVideo) {
@@ -193,6 +196,8 @@ function AdminPanel() {
       setEditImages([]);
       setEditVideo(null);
       setDeleteVideo(false);
+      setImagesToDelete([]);
+      setExistingImages([]);
     } catch (error) {
       console.error("Update error:", error.response?.data || error.message);
     }
@@ -212,8 +217,11 @@ function AdminPanel() {
 
     const uniqueFiles = selectedFiles.filter((file) =>
       !existingImages.some(img => img.url.includes(file.name)) &&
-      !editImages.some(existing => existing.name === file.name)
-    );
+      !editImages.some(existing =>
+        existing.name === file.name &&
+        existing.size === file.size &&
+        existing.lastModified === file.lastModified
+      ));
 
     setEditImages((prev) => [...prev, ...uniqueFiles]);
   };
