@@ -156,6 +156,7 @@
   transition: transform 0.3s ease;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(90deg, #da9595 0%, #c9bddf 100%);
 }
 
 .animal-card:hover {
@@ -867,16 +868,16 @@ body.dark-mode .navbar-toggler-icon {
 .animal-name-strip {
   color: #375880;
   font-weight: bold;
-  background: linear-gradient(90deg, #da9595 0%, #c9bddf 100%); /* Sarımsı bir renk (isteğe göre değiştirilebilir) */
+  background: linear-gradient(90deg, #e6bebe 0%, #dacdf1 100%); /* Sarımsı bir renk (isteğe göre değiştirilebilir) */
   padding: 8px;
   font-size: 1.2rem;
   font-family: 'Segoe UI', sans-serif;
   letter-spacing: 0.7px;
-  border-bottom: 1px solid #a83f3f;
+  border-bottom: 1px solid #dacdf1;
 }
 
 .dark-mode .animal-name-strip {
   background-color: #995050;
-  color: #1e1e1e;
+  color: #c7bdbd;
   border-bottom: 1px solid #612020;
 }
