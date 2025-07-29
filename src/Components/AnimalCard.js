@@ -129,13 +129,17 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
           )}
 
           {hasValidVideo && (
-
             <Modal show={showVideoModal} onHide={handleCloseVideo} centered size="lg">
               <Modal.Header closeButton>
                 <Modal.Title>{name} - Tanıtım Videosu</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <video controls style={{ width: "100%", borderRadius: "12px" }}>
+                <video controls style={{
+                  width: "100%",
+                  maxHeight: "70vh",
+                  borderRadius: "12px",
+                  objectFit: "contain"
+                }}>
                   <source src={cleanPath(cleanedVideoUrl)} type="video/mp4" />
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>

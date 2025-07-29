@@ -155,20 +155,24 @@ function AdminPanel() {
         if (key !== "id") data.append(key, value);
       });
 
-      // Mevcut görseller
-      existingImages.forEach((img) => {
-        data.append("existingImageUrls", img.url);
-        data.append("existingImageFileIds", img.fileId);
-      });
+      // 1. Kalan mevcut görselleri gönder (silinenleri gönderme)
+      existingImages
+        .filter((img) => !imagesToDelete.some((del) => del.fileId === img.fileId))
+        .forEach((img) => {
+          data.append("existingImageUrls", img.url);
+          data.append("existingImageFileIds", img.fileId);
+        });
 
-      // Yeni yüklenen görseller
-      uploadedImages.forEach((img) => {
-        const alreadyExists = existingImages.some(existing => existing.url === img.url || existing.fileId === img.fileId);
-        if (!alreadyExists) {
+      // 2. Yeni yüklenen görselleri (duplicate ve silinenle çakışanları filtrele)
+      uploadedImages
+        .filter((img) =>
+          !existingImages.some((exist) => exist.fileId === img.fileId) &&
+          !imagesToDelete.some((del) => del.fileId === img.fileId)
+        )
+        .forEach((img) => {
           data.append("imageUrls", img.url);
           data.append("imageFileIds", img.fileId);
-        }
-      });      
+        });
 
       // Yeni video varsa
       if (uploadedVideo) {
@@ -424,8 +428,8 @@ function AdminPanel() {
                         setDeleteVideo(false);
 
                         const cleanedVideoUrl = Array.isArray(a.videoUrl)
-                        ? a.videoUrl[0]
-                        : a.videoUrl?.split(",").pop();
+                          ? a.videoUrl[0]
+                          : a.videoUrl?.split(",").pop();
 
                         setEditData(a);
 
@@ -696,42 +700,43 @@ function AdminPanel() {
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
               <Form.Control type="file" multiple accept="image/*" onChange={handleEditImageSelect} />
             </Form.Group>
-            {editData.videoUrl  && !deleteVideo && (() => {
-                const cleanedVideoUrl = Array.isArray(editData.videoUrl)
+            {editData.videoUrl && !deleteVideo && (() => {
+              const cleanedVideoUrl = Array.isArray(editData.videoUrl)
                 ? editData.videoUrl[0]
                 : editData.videoUrl?.split(",").pop();
               return (
-              <div className="mb-2">
-                <Form.Label>Mevcut Video</Form.Label>
-                <div style={{ position: "relative", display: "inline-block" }}>
-                  <video
-                    controls
-                    width="100%"
-                    style={{ borderRadius: "8px", maxHeight: "250px" }}
-                  >
-                    <source src={cleanPath(cleanedVideoUrl )} type="video/mp4" />
-                    Tarayıcınız video oynatmayı desteklemiyor.
-                  </video>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    style={{
-                      position: "absolute",
-                      top: "5px",
-                      right: "5px",
-                      padding: "2px 6px",
-                      borderRadius: "6px"
-                    }}
-                    onClick={() => {
-                      setDeleteVideo(true);
-                      setEditData(prev => ({ ...prev, videoUrl: null }));
-                    }}
-                  >
-                    ×
-                  </Button>
+                <div className="mb-2">
+                  <Form.Label>Mevcut Video</Form.Label>
+                  <div style={{ position: "relative", display: "inline-block" }}>
+                    <video
+                      controls
+                      width="100%"
+                      style={{ borderRadius: "8px", maxHeight: "250px" }}
+                    >
+                      <source src={cleanPath(cleanedVideoUrl)} type="video/mp4" />
+                      Tarayıcınız video oynatmayı desteklemiyor.
+                    </video>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      style={{
+                        position: "absolute",
+                        top: "5px",
+                        right: "5px",
+                        padding: "2px 6px",
+                        borderRadius: "6px"
+                      }}
+                      onClick={() => {
+                        setDeleteVideo(true);
+                        setEditData(prev => ({ ...prev, videoUrl: null }));
+                      }}
+                    >
+                      ×
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            )})()}
+              )
+            })()}
             <Form.Group className="mb-2">
               <Form.Label>Yeni Video (varsa)</Form.Label>
               <Form.Control
