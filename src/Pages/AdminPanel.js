@@ -12,6 +12,7 @@ function AdminPanel() {
   const [deleteVideo, setDeleteVideo] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
+  const cleanedVideoUrl = editData.videoUrl?.split(",").find(v => v?.startsWith("http"));
 
   const [formData, setFormData] = useState({
     name: "",
@@ -419,6 +420,10 @@ function AdminPanel() {
                       size="sm"
                       style={{ color: "white" }}
                       onClick={() => {
+                        setExistingImages([]);
+                        setEditVideo(null);
+                        setImagesToDelete([]);
+                        setDeleteVideo(false);
                         setEditData(a);
                         setExistingImages(
                           a.imageUrls?.map((url, i) => ({
@@ -426,10 +431,7 @@ function AdminPanel() {
                             fileId: a.imageFileIds?.[i] || null,
                           })) || []
                         );
-                        setImagesToDelete([]);
-                        setEditImages([]);
-                        setEditVideo(null);
-                        setDeleteVideo(false);
+
                         setShowEditModal(true);
                       }}
                     >
