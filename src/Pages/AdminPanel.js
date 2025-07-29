@@ -80,6 +80,20 @@ function AdminPanel() {
     }
   };
 
+  const uploadToImageKitVideo = async (file) => {
+    const form = new FormData();
+    form.append("file", file);
+    setIsUploading(true);
+    try {
+      const res = await axios.post("/videos/upload", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return res.data;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleAddAnimal = async () => {
     try {
       const uploadedImages = [];
@@ -90,7 +104,7 @@ function AdminPanel() {
 
       let uploadedVideo = null;
       if (video) {
-        uploadedVideo = await uploadToImageKit(video);
+        uploadedVideo = await uploadToImageKitVideo(video);
       }
 
       const payload = {
@@ -530,7 +544,7 @@ function AdminPanel() {
                   const file = e.target.files[0];
                   if (!file) return;
 
-                  const uploaded = await uploadToImageKit(file);
+                  const uploaded = await uploadToImageKitVideo(file);
                   setEditVideo({
                     url: uploaded.url,
                     fileId: uploaded.fileId,
@@ -709,7 +723,7 @@ function AdminPanel() {
                   const file = e.target.files[0];
                   if (!file) return;
 
-                  const uploaded = await uploadToImageKit(file);
+                  const uploaded = await uploadToImageKitVideo(file);
                   setEditVideo({
                     url: uploaded.url,
                     fileId: uploaded.fileId,
