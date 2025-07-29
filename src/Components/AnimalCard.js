@@ -57,14 +57,15 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
   };
 
   const cleanPath = (url) => {
-    if (!url) return "";
+    if (!url || url === "null") return "";
+    if (url.includes(",")) {
+      const part = url.split(",").find(v => v?.startsWith("http"));
+      return part || "";
+    }
     return url;
   };
-  
-  const cleanedVideoUrl = Array.isArray(videoUrl)
-  ? videoUrl.find((v) => v?.startsWith("http"))
-  : videoUrl?.split(",").find((v) => v?.startsWith("http"));
 
+  const cleanedVideoUrl = cleanPath(videoUrl);
   const hasValidVideo = !!cleanedVideoUrl;
 
   return (
