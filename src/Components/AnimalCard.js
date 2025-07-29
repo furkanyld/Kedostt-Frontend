@@ -91,13 +91,6 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
               className="card-image"
             />
           )}
-
-          <div className="card-overlay d-none d-md-block">
-            <h5>{name}</h5>
-            <p>{gender} / {breed} / {species}</p>
-            <p>Yaş: {ageYears} yıl {ageMonths} ay</p>
-            <p className="card-description">{description}</p>
-          </div>
         </div>
         <Card.Body>
           <Button
@@ -109,10 +102,10 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
           </Button>
           {showDetails && (
             <div className="animal-info-box mt-2">
-              <p><strong>Cinsiyet:</strong> {gender}</p>
               <p><strong>Tür:</strong> {species}</p>
               <p><strong>Cins:</strong> {breed}</p>
               <p><strong>Yaş:</strong> {ageYears} yıl {ageMonths} ay</p>
+              <p><strong>Cinsiyet:</strong> {gender}</p>
               <p><strong>Açıklama:</strong> {description}</p>
             </div>
           )}
