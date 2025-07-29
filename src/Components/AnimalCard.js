@@ -122,8 +122,14 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
               Bağış Yap
             </Button>
           </div>
+          {hasValidVideo && (
+            <Button variant="dark" onClick={handleOpenVideo} className="w-100 mt-2">
+              Videoyu İzle
+            </Button>
+          )}
 
           {hasValidVideo && (
+
             <Modal show={showVideoModal} onHide={handleCloseVideo} centered size="lg">
               <Modal.Header closeButton>
                 <Modal.Title>{name} - Tanıtım Videosu</Modal.Title>
