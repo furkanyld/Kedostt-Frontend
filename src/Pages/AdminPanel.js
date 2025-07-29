@@ -136,6 +136,17 @@ function AdminPanel() {
   };
 
   const handleUpdateAnimal = async () => {
+
+    if (
+      editImages.length === 0 &&
+      imagesToDelete.length === 0 &&
+      !editVideo &&
+      !deleteVideo
+    ) {
+      setShowEditModal(false);
+      return; // Hiçbir değişiklik yapılmadıysa güncelleme gönderme
+    }
+    
     try {
       const uploadedImages = [];
       for (let i = 0; i < editImages.length; i++) {
@@ -164,15 +175,18 @@ function AdminPanel() {
         });
 
       // 2. Yeni yüklenen görselleri (duplicate ve silinenle çakışanları filtrele)
-      uploadedImages
-        .filter((img) =>
-          !existingImages.some((exist) => exist.fileId === img.fileId) &&
-          !imagesToDelete.some((del) => del.fileId === img.fileId)
-        )
-        .forEach((img) => {
-          data.append("imageUrls", img.url);
-          data.append("imageFileIds", img.fileId);
-        });
+      if (uploadedImages.length > 0) {
+        uploadedImages
+          .filter((img) => {
+            const alreadyExists = existingImages.some((exist) => exist.fileId === img.fileId);
+            const markedForDelete = imagesToDelete.some((del) => del.fileId === img.fileId);
+            return !alreadyExists && !markedForDelete;
+          })
+          .forEach((img) => {
+            data.append("imageUrls", img.url);
+            data.append("imageFileIds", img.fileId);
+          });
+      }
 
       // Yeni video varsa
       if (uploadedVideo) {
