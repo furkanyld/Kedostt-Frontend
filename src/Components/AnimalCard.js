@@ -102,7 +102,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
         <Card.Body>
           <Button
             variant="info"
-            className="w-100 mb-2"
+            className="w-100 mb-2 text-light"
             onClick={() => setShowDetails(!showDetails)}
           >
             {showDetails ? "Detayları Gizle" : "Detayları Göster"}
@@ -120,7 +120,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             <Button variant="primary" onClick={handleAdopt} className="w-100">
               Sahiplen
             </Button>
-            <Button variant="success" onClick={handleDonate} className="w-100">
+            <Button variant="success" onClick={handleDonate} className="w-100;">
               Bağış Yap
             </Button>
           </div>
