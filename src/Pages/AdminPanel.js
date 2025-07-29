@@ -424,7 +424,16 @@ function AdminPanel() {
                         setEditVideo(null);
                         setImagesToDelete([]);
                         setDeleteVideo(false);
-                        setEditData(a);
+
+                        const cleanedVideoUrl = Array.isArray(a.videoUrl)
+                        ? a.videoUrl[0]
+                        : a.videoUrl?.split(",").pop();
+
+                        setEditData({
+                          ...a,
+                          videoUrl: cleanedVideoUrl,
+                        });
+                        
                         setExistingImages(
                           a.imageUrls?.map((url, i) => ({
                             url,
@@ -692,7 +701,7 @@ function AdminPanel() {
               <Form.Label>Yeni Görseller (varsa)</Form.Label>
               <Form.Control type="file" multiple accept="image/*" onChange={handleEditImageSelect} />
             </Form.Group>
-            {editData.videoUrl && !deleteVideo && (
+            {cleanedVideoUrl  && !deleteVideo && (
               <div className="mb-2">
                 <Form.Label>Mevcut Video</Form.Label>
                 <div style={{ position: "relative", display: "inline-block" }}>
@@ -701,7 +710,7 @@ function AdminPanel() {
                     width="100%"
                     style={{ borderRadius: "8px", maxHeight: "250px" }}
                   >
-                    <source src={cleanPath(editData.videoUrl)} type="video/mp4" />
+                    <source src={cleanPath(cleanedVideoUrl )} type="video/mp4" />
                     Tarayıcınız video oynatmayı desteklemiyor.
                   </video>
                   <Button
