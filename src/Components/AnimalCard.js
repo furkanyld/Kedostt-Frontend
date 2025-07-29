@@ -96,6 +96,9 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             />
           )}
         </div>
+        <div className="animal-name-strip text-center fw-bold">
+          {name}
+        </div>
         <Card.Body>
           <Button
             variant="outline-info"
@@ -113,9 +116,6 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
               <p><strong>Açıklama:</strong> {description}</p>
             </div>
           )}
-          <Card.Title className="text-center fw-bold fs-5 text-primary mt-2">
-            {name}
-          </Card.Title>
           <div className="d-grid gap-2 mb-2">
             <Button variant="primary" onClick={handleAdopt} className="w-100">
               Sahiplen

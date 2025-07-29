@@ -863,3 +863,19 @@ body.dark-mode .navbar-toggler-icon {
   background-color: rgba(50, 50, 50, 0.9);
   color: #f0f0f0;
 }
+
+.animal-name-strip {
+  background-color: #f9c74f; /* Sarımsı bir renk (isteğe göre değiştirilebilir) */
+  padding: 8px;
+  font-size: 1.1rem;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 0.5px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+.dark-mode .animal-name-strip {
+  background-color: #f9c74f;
+  color: #1e1e1e;
+  border-bottom: 1px solid #444;
+}
