@@ -101,7 +101,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
         </div>
         <Card.Body>
           <Button
-            variant="outline-info"
+            variant="info"
             className="w-100 mb-2"
             onClick={() => setShowDetails(!showDetails)}
           >
@@ -125,7 +125,7 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             </Button>
           </div>
           {hasValidVideo && (
-            <Button variant="outline-secondary" onClick={handleOpenVideo} className="w-100 mt-2">
+            <Button variant="secondary" onClick={handleOpenVideo} className="w-100 mt-2 text-light">
               🎬 Videoyu İzle
             </Button>
           )}
