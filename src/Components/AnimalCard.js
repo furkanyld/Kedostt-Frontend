@@ -113,8 +113,10 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
               <p><strong>Açıklama:</strong> {description}</p>
             </div>
           )}
-          <Card.Title className="text-center">{name}</Card.Title>
-          <div className="d-flex gap-2 mb-2">
+          <Card.Title className="text-center fw-bold fs-5 text-primary mt-2">
+            {name}
+          </Card.Title>
+          <div className="d-grid gap-2 mb-2">
             <Button variant="primary" onClick={handleAdopt} className="w-100">
               Sahiplen
             </Button>
@@ -123,8 +125,8 @@ function AnimalCard({ name, description, imageUrls, videoUrl, id, species, breed
             </Button>
           </div>
           {hasValidVideo && (
-            <Button variant="dark" onClick={handleOpenVideo} className="w-100 mt-2">
-              Videoyu İzle
+            <Button variant="outline-secondary" onClick={handleOpenVideo} className="w-100 mt-2">
+              🎬 Videoyu İzle
             </Button>
           )}
 

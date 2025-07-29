@@ -136,17 +136,6 @@ function AdminPanel() {
   };
 
   const handleUpdateAnimal = async () => {
-
-    if (
-      editImages.length === 0 &&
-      imagesToDelete.length === 0 &&
-      !editVideo &&
-      !deleteVideo
-    ) {
-      setShowEditModal(false);
-      return; // Hiçbir değişiklik yapılmadıysa güncelleme gönderme
-    }
-    
     try {
       const uploadedImages = [];
       for (let i = 0; i < editImages.length; i++) {
