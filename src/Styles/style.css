@@ -881,3 +881,10 @@ body.dark-mode .navbar-toggler-icon {
   color: #a5b6ca;
   border-bottom: 1px solid #612020;
 }
+
+.soft-card {
+  border-radius: 1rem;
+  background: linear-gradient(to bottom right, #f6e9f8, #e2d1f9);
+  border: none;
+}
+

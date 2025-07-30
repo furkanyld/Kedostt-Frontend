@@ -23,9 +23,11 @@ function HomePage() {
   return (
     <div className="page-background">
       <div className="container py-5">
-        <div className="row g-4 flex-column-reverse flex-md-row justify-content-between">
-          <div className="col-md-7 d-flex flex-column align-items-center text-center">
-            <div style={{ maxWidth: "900px" }}>
+        <div className="row g-4 justify-content-between">
+
+          {/* SOL YAZI KARTI */}
+          <div className="col-md-7">
+            <div className="card custom-home-card shadow-sm p-4 soft-card h-100">
               <h1 style={{ color: "#647f9f", fontWeight: "700", fontSize: "2rem" }}>
                 Kedostt 🐾
               </h1>
@@ -34,16 +36,23 @@ function HomePage() {
                 Sokakta yardıma muhtaç, hasta ya da yuva bekleyen canları görünür kılmak için bu sayfayı açtım.
                 Burada onları sahiplendirmek, tedavi masraflarına destek olmak ve onların sesini duyurmak için uğraşıyorum.
               </p>
-              <a
-                href="https://www.instagram.com/kedostt"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-danger mt-3 px-4 py-2"
-                style={{ borderRadius: "20px", fontWeight: "600", fontSize: "0.95rem" }}
-              >
-                📸 Instagram Sayfamız
-              </a>
-
+              <div className="text-center mt-0">
+                <a
+                  href="https://www.instagram.com/kedostt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-danger mt-3 px-4 py-2"
+                  style={{ borderRadius: "10px", 
+                    fontWeight: "600",
+                    fontSize: "0.95rem", 
+                    maxWidth: "fit-content", 
+                    width: "auto",
+                    color: "white"
+                  }}
+                >
+                  📸 Instagram Sayfamız
+                </a>
+              </div>
               <div className="mt-5">
                 <h2 style={{ color: "#647f9f", fontWeight: "600", fontSize: "1.4rem" }}>
                   🐶 🐱 Sahiplen | Bağış Yap | Destek Ol
@@ -59,14 +68,29 @@ function HomePage() {
                   Sen de bir cana yuva olabilir ya da mama ve tedavi masraflarına katkıda bulunabilirsin.
                   Hep birlikte onların hayatına dokunabiliriz!
                 </p>
+                <div className="text-center mt-4">
+                  <a
+                    href="/donate"
+                    className="btn btn-danger px-4 py-2 d-inline-block"
+                    style={{
+                      borderRadius: "10px",
+                      fontWeight: "600",
+                      fontSize: "0.95rem",
+                      color: "white"
+                    }}
+                  >
+                    🐾 Hayvanları Gör
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="col-md-4 offset-md-1 d-flex flex-column gap-3">
+          {/* SAĞ BLOK */}
+          <div className="col-md-4 d-flex flex-column gap-3">
+            {/* GÖRSEL */}
             <div className="card shadow-sm p-3 soft-card">
               <h5 className="card-title">❤️ Sahiplen, Bir Hayat Kurtar</h5>
-
               {randomAnimal?.imageUrls?.length > 0 ? (
                 <img
                   src={cleanPath(randomAnimal.imageUrls[0])}
@@ -84,6 +108,7 @@ function HomePage() {
               )}
             </div>
 
+            {/* KURALLAR */}
             <div className="card custom-home-card shadow-sm p-3 soft-card">
               <h5 className="card-title">📌 Sahiplendirme Kuralları</h5>
               <ul style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.6, paddingLeft: "1rem" }}>
@@ -96,6 +121,7 @@ function HomePage() {
               </ul>
             </div>
           </div>
+
         </div>
       </div>
     </div>
