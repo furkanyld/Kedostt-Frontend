@@ -36,7 +36,7 @@ function HomePage() {
                 Sokakta yardıma muhtaç, hasta ya da yuva bekleyen canları görünür kılmak için bu sayfayı açtım.
                 Burada onları sahiplendirmek, tedavi masraflarına destek olmak ve onların sesini duyurmak için uğraşıyorum.
               </p>
-              <div className="text-center mt-0">
+              <div className="text-center">
                 <a
                   href="https://www.instagram.com/kedostt"
                   target="_blank"
@@ -47,7 +47,9 @@ function HomePage() {
                     fontSize: "0.95rem", 
                     maxWidth: "fit-content", 
                     width: "auto",
-                    color: "white"
+                    color: "white",
+                    marginTop: "1rem",
+                    marginBottom: "1rem"
                   }}
                 >
                   📸 Instagram Sayfamız
@@ -62,7 +64,7 @@ function HomePage() {
                     color: "#4a4a4a",
                     fontSize: "0.95rem",
                     lineHeight: 1.5,
-                    marginTop: "12px",
+                    marginTop: "1rem"
                   }}
                 >
                   Sen de bir cana yuva olabilir ya da mama ve tedavi masraflarına katkıda bulunabilirsin.
@@ -76,7 +78,8 @@ function HomePage() {
                       borderRadius: "10px",
                       fontWeight: "600",
                       fontSize: "0.95rem",
-                      color: "white"
+                      color: "white",
+                      marginTop: "1rem"
                     }}
                   >
                     🐾 Hayvanları Gör
